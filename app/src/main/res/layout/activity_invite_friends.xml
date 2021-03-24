@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".activities.PaymentActivity">
+
+
+    <ImageView
+        android:id="@+id/backArrowImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:clickable="true"
+        android:contentDescription="@string/app_name"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:padding="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back" />
+
+    <TextView
+        android:id="@+id/support"
+        style="@style/headlingStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:drawableStart="@drawable/ic_man_user"
+        android:padding="@dimen/_10sdp"
+        android:text="@string/support"
+        app:layout_constraintBottom_toBottomOf="@+id/backArrowImg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/backArrowImg" />
+
+
+    <TextView
+        android:id="@+id/paymentTv"
+        style="@style/headlingStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:text="@string/invites_firends"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/backArrowImg"
+        app:layout_constraintTop_toBottomOf="@+id/backArrowImg" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paymentTv">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/_35sdp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/inviteDescTv"
+                    style="@style/headlingStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/earn_upto_50_by_referring_your_n_friends"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/inviteCodeTv"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/dotted_white_bg"
+                    android:padding="@dimen/_10sdp"
+                    android:text="Invite Code : ZNCBSH65G"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/inviteDescTv" />
+
+                <TextView
+                    android:id="@+id/termConsCheckTv"
+                    style="@style/headlingStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:text="@string/terms_conditions"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/inviteCodeTv" />
+
+
+                <ImageView
+                    android:id="@+id/img1"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:src="@drawable/bg_circle_black"
+                    app:layout_constraintStart_toStartOf="@id/termConsCheckTv"
+                    app:layout_constraintTop_toBottomOf="@+id/termConsCheckTv" />
+
+
+                <TextView
+                    android:id="@+id/termConsCheckTv1"
+                    style="@style/titleStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:text="@string/dummu_loc"
+                    app:layout_constraintBottom_toBottomOf="@+id/img1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/img1"
+                    app:layout_constraintTop_toTopOf="@+id/img1" />
+
+                <ImageView
+                    android:id="@+id/img2"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:src="@drawable/bg_circle_black"
+                    app:layout_constraintBottom_toBottomOf="@+id/termConsCheckTv2"
+                    app:layout_constraintEnd_toEndOf="@+id/img1"
+                    app:layout_constraintStart_toStartOf="@id/img1"
+                    app:layout_constraintTop_toTopOf="@+id/termConsCheckTv2" />
+
+
+                <TextView
+                    android:id="@+id/termConsCheckTv2"
+                    style="@style/titleStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:text="@string/dummu_loc"
+                    app:layout_constraintEnd_toEndOf="@+id/termConsCheckTv1"
+                    app:layout_constraintStart_toStartOf="@+id/termConsCheckTv1"
+                    app:layout_constraintTop_toBottomOf="@+id/termConsCheckTv1" />
+
+                <ImageView
+                    android:id="@+id/img3"
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:src="@drawable/bg_circle_black"
+                    app:layout_constraintBottom_toBottomOf="@+id/termConsCheckTv3"
+                    app:layout_constraintEnd_toEndOf="@id/img1"
+                    app:layout_constraintStart_toStartOf="@id/img1"
+                    app:layout_constraintTop_toTopOf="@+id/termConsCheckTv3" />
+
+
+                <TextView
+                    android:id="@+id/termConsCheckTv3"
+                    style="@style/titleStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:text="@string/dummu_loc"
+                    app:layout_constraintEnd_toEndOf="@+id/termConsCheckTv2"
+                    app:layout_constraintStart_toStartOf="@+id/termConsCheckTv2"
+                    app:layout_constraintTop_toBottomOf="@+id/termConsCheckTv2" />
+
+
+                <RelativeLayout
+                    android:id="@+id/shareThroOthers"
+                    style="@style/buttonStyle"
+                    android:layout_width="0dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@drawable/button_selector_white_corners"
+                    app:layout_constraintEnd_toStartOf="@+id/shareThroWhstApp"
+                    app:layout_constraintStart_toStartOf="@+id/img3"
+                    app:layout_constraintTop_toBottomOf="@+id/termConsCheckTv3">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_toStartOf="@+id/othersTv"
+                        android:src="@drawable/ic_baseline_share_24" />
+
+                    <TextView
+                        android:id="@+id/othersTv"
+                        style="@style/titleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/others" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/shareThroWhstApp"
+                    style="@style/buttonStyle"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/button_selector_green_corners"
+                    app:layout_constraintEnd_toEndOf="@+id/termConsCheckTv3"
+                    app:layout_constraintStart_toEndOf="@+id/shareThroOthers"
+                    app:layout_constraintTop_toBottomOf="@+id/termConsCheckTv3">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_toStartOf="@+id/whastAppTv"
+                        android:src="@drawable/ic_whatsapp" />
+
+                    <TextView
+                        android:id="@+id/whastAppTv"
+                        style="@style/titleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/others"
+                        android:textColor="@color/colorWhite" />
+
+                </RelativeLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".fragments.tripInformationFragments.RidePaymentMethodFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/_35sdp"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/BookingIdTv"
+                    style="@style/headlingStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Booking ID : 12345"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/twoLocImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:src="@drawable/two_loc_icon"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    app:layout_constraintTop_toTopOf="@+id/startDateTv"
+                    app:layout_constraintBottom_toBottomOf="@+id/endDateTv"
+                    app:layout_constraintStart_toEndOf="@+id/startDateTv"/>
+
+                <TextView
+                    android:id="@+id/startDateTv"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Start Date 11:23PM"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/BookingIdTv" />
+
+                <TextView
+                    android:id="@+id/endDateTv"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="End Date 11:60PM"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/startDateTv" />
+
+                <TextView
+                    android:id="@+id/billDetailsTv"
+                    style="@style/headlingStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/bill_details"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/endDateTv" />
+
+
+                <TextView
+                    android:id="@+id/planTypeTv"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:text="@string/plan_type"
+                    app:layout_constraintStart_toStartOf="@+id/billDetailsTv"
+                    app:layout_constraintTop_toBottomOf="@+id/billDetailsTv" />
+
+                <TextView
+                    android:id="@+id/palnTvValue"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/local"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/planTypeTv" />
+
+                <TextView
+                    android:id="@+id/baseFareTv"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/base_fare"
+                    app:layout_constraintStart_toStartOf="@+id/planTypeTv"
+                    app:layout_constraintTop_toBottomOf="@+id/planTypeTv" />
+
+                <TextView
+                    android:id="@+id/baseFareValueTv"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/hundred_"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/baseFareTv" />
+
+                <TextView
+                    android:id="@+id/extraKmTv"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/extra_km"
+                    app:layout_constraintStart_toStartOf="@+id/baseFareTv"
+                    app:layout_constraintTop_toBottomOf="@+id/baseFareTv" />
+
+                <TextView
+                    android:id="@+id/extraKmValueTv"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/hundred_"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/extraKmTv" />
+
+                <TextView
+                    android:id="@+id/extraHrTv"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/extra_hr"
+                    app:layout_constraintStart_toStartOf="@+id/extraKmTv"
+                    app:layout_constraintTop_toBottomOf="@+id/extraKmTv" />
+
+                <TextView
+                    android:id="@+id/extraHrValueTv"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/hundred_"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/extraHrTv" />
+
+                <TextView
+                    android:id="@+id/copanDiscountTv"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/coupon_discount"
+                    app:layout_constraintStart_toStartOf="@+id/extraHrTv"
+                    app:layout_constraintTop_toBottomOf="@+id/extraHrTv" />
+
+                <TextView
+                    android:id="@+id/copanDiscounValuetTv"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/hundred_"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/copanDiscountTv" />
+
+                <View
+                    android:id="@+id/div"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:background="@color/gray_div_dark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/copanDiscountTv" />
+
+
+                <TextView
+                    android:id="@+id/totalBillTv"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:text="@string/total_bill"
+                    app:layout_constraintStart_toStartOf="@+id/extraHrTv"
+                    app:layout_constraintTop_toBottomOf="@+id/div" />
+
+                <TextView
+                    android:id="@+id/totalBillValueTv"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/hundred_"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/totalBillTv" />
+
+
+                <TextView
+                    android:id="@+id/paymentTv"
+                    style="@style/headlingStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/payment"
+                    app:layout_constraintStart_toStartOf="@+id/totalBillTv"
+                    app:layout_constraintTop_toBottomOf="@+id/totalBillTv" />
+
+                <TextView
+                    android:id="@+id/cashOnlineTv"
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@string/cash_online"
+                    app:layout_constraintStart_toStartOf="@+id/paymentTv"
+                    app:layout_constraintTop_toBottomOf="@+id/paymentTv" />
+
+                <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+                    android:id="@+id/paymentMethodToggleGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_40sdp"
+                    android:layout_marginEnd="@dimen/_40sdp"
+                    app:justifyContent="space_between"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cashOnlineTv">
+
+                    <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                        android:id="@+id/cardCashBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_60sdp"
+                        app:toggle_backgroundColor="@color/colorYellowLight"
+                        app:toggle_btnCornerRadius="2dp"
+                        app:toggle_iconPaddingBottom="@dimen/_20sdp"
+                        app:toggle_iconPaddingHorizontal="@dimen/_20sdp"
+                        app:toggle_icon="@drawable/ic_cash"
+                        app:toggle_fontFamily="fonts/quicksand_regular.otf"
+                        app:toggle_selectedBackgroundColor="@color/colorPrimary"
+                        app:toggle_selectedIcon="@drawable/ic_cash_white"
+                        app:toggle_selectedTextColor="@android:color/white"
+                        app:toggle_text="     Cash     "
+                        app:toggle_iconGravity="top|center_horizontal"
+                        app:toggle_textGravity="center|bottom"
+                        app:toggle_textPaddingBottom="@dimen/_5sdp" />
+
+                    <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                        android:id="@+id/cardOnlineBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_60sdp"
+                        app:toggle_backgroundColor="@color/colorYellowLight"
+                        app:toggle_btnCornerRadius="2dp"
+                        app:toggle_fontFamily="fonts/quicksand_regular.otf"
+                        app:toggle_icon="@drawable/ic_credit_card"
+                        app:toggle_iconGravity="top|center"
+                        app:toggle_iconPaddingBottom="@dimen/_20sdp"
+                        app:toggle_iconPaddingHorizontal="@dimen/_20sdp"
+                        app:toggle_selectedBackgroundColor="@color/colorPrimary"
+                        app:toggle_selectedIcon="@drawable/ic_cash_white"
+                        app:toggle_selectedTextColor="@android:color/white"
+                        app:toggle_text="     Card     "
+                        app:toggle_textGravity="center|bottom"
+                        app:toggle_textPaddingBottom="@dimen/_5sdp" />
+
+                </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

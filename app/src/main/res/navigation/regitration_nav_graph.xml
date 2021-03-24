@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/regitration_nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.techlogix.pacaps.fragments.registrationFlow.SplashFragment"
+        android:label="@string/splash_frag"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/splashToLoginSignupAction"
+            app:destination="@id/loginSignupFragment"
+            app:enterAnim="@anim/left_to_right"
+            app:popEnterAnim="@anim/right_to_left" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginSignupFragment"
+        android:name="com.techlogix.pacaps.fragments.registrationFlow.LoginSinUpFragment"
+        android:label="@string/login_signup_frag"
+        tools:layout="@layout/fragment_login_sin_up">
+
+        <action
+            android:id="@+id/loginSignupToOTPFragAction"
+            app:destination="@id/otpFrag"
+            app:enterAnim="@anim/left_to_right"
+            app:popEnterAnim="@anim/right_to_left" />
+
+        <argument
+            android:name="loginOrSignup"
+            android:defaultValue="1"
+            app:argType="integer"
+            />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/otpFrag"
+        android:name="com.techlogix.pacaps.fragments.registrationFlow.OTPFragment"
+        android:label="@string/otp_frag"
+        tools:layout="@layout/fragment_o_t_p">
+
+    </fragment>
+
+</navigation>

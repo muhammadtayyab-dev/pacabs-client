@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhiteLight"
+    android:padding="@dimen/_10sdp"
+    app:cardCornerRadius="@dimen/_5sdp"
+    tools:context=".fragments.settingsFragments.MyProfileFragment">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:paddingBottom="@dimen/_20sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/fullNameRl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:background="@drawable/edittxt_background">
+
+
+                <EditText
+                    android:id="@+id/nameEd"
+                    style="@style/editTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_toStartOf="@+id/nameImg"
+                    android:digits="@string/enter_full_name"
+                    android:hint="@string/enter_phone_number"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:maxLength="50" />
+
+                <ImageView
+                    android:id="@+id/nameImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:src="@drawable/ic_man_user" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/numberRl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/edittxt_background">
+
+
+                <EditText
+                    android:id="@+id/numberEd"
+                    style="@style/editTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_toStartOf="@+id/mobileImg"
+                    android:digits="@string/number_only_digits"
+                    android:hint="@string/enter_phone_number"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="20" />
+
+                <ImageView
+                    android:id="@+id/mobileImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:src="@drawable/ic_cell_phone" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/emailRl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/edittxt_background">
+
+
+                <EditText
+                    android:id="@+id/emailEd"
+                    style="@style/editTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_toStartOf="@+id/emailImg"
+                    android:digits="@string/enter_email"
+                    android:hint="@string/enter_phone_number"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="30" />
+
+                <ImageView
+                    android:id="@+id/emailImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:src="@drawable/ic_mail" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/passwordRl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/edittxt_background">
+
+
+                <EditText
+                    android:id="@+id/passwordRlEd"
+                    style="@style/editTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_toStartOf="@+id/passwordImg"
+                    android:digits="@string/number_only_digits"
+                    android:hint="@string/enter_pasword"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:maxLength="8" />
+
+                <ImageView
+                    android:id="@+id/passwordImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:src="@drawable/ic_inclined_key" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/resetBtn"
+                style="@style/buttonStyle"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:background="@drawable/button_selector_black"
+                android:text="Reset"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

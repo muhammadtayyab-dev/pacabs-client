@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:elevation="@dimen/_5sdp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_10sdp">
+
+    <ImageView
+        android:id="@+id/cabImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_cab" />
+
+    <TextView
+        android:id="@+id/cabArrivalTimeTv"
+        style="@style/titleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_3_mins"
+        app:layout_constraintStart_toStartOf="@+id/cabImg"
+        app:layout_constraintTop_toBottomOf="@+id/cabImg" />
+
+    <TextView
+        android:id="@+id/cabTypeTv"
+        style="@style/headlingStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="@string/mini_car"
+        app:layout_constraintStart_toEndOf="@+id/cabImg"
+        app:layout_constraintTop_toTopOf="@+id/cabImg" />
+
+    <TextView
+        android:id="@+id/cabDescTv"
+        style="@style/titleStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/araam_day_sasti_sawari"
+        app:layout_constraintEnd_toStartOf="@+id/cabFaretv"
+        app:layout_constraintStart_toStartOf="@+id/cabTypeTv"
+        app:layout_constraintTop_toBottomOf="@+id/cabTypeTv" />
+
+    <TextView
+        android:id="@+id/cabFaretv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_20sdp"
+        style="@style/headlingStyle"
+        android:text=" ₹100"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_5sdp"
+    android:background="@drawable/discount_bg"
+    android:elevation="@dimen/_5sdp"
+    android:paddingBottom="@dimen/_35sdp">
+
+    <TextView
+        android:id="@+id/powerPassTv"
+        style="@style/titleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/dotted_red_bg"
+        android:padding="@dimen/_10sdp"
+        android:text="@string/power_pass"
+        android:textColor="@color/colorMehron"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/offerTv"
+        style="@style/headlingStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/flat_50_off_upto_rs25_on_all_rides"
+        app:layout_constraintStart_toStartOf="@+id/powerPassTv"
+        app:layout_constraintTop_toBottomOf="@+id/powerPassTv" />
+
+    <TextView
+        android:id="@+id/valideTv"
+        style="@style/titleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/valid_for"
+        app:layout_constraintStart_toStartOf="@+id/offerTv"
+        app:layout_constraintTop_toBottomOf="@+id/offerTv" />
+
+    <TextView
+        android:id="@+id/valideValueTv"
+        style="@style/headlingStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="5 Rides And 30 Days"
+        app:layout_constraintStart_toStartOf="@+id/valideTv"
+        app:layout_constraintTop_toBottomOf="@+id/valideTv" />
+
+    <TextView
+        android:id="@+id/valideRsTv"
+        style="@style/headlingStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:text="@string/hundred_"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/valideTv" />
+
+    <TextView
+        android:id="@+id/oldRsTv"
+        style="@style/titleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:text="@string/hundred_"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/valideValueTv"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

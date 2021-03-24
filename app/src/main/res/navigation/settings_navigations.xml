@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dashboard_nav_graph"
+    app:startDestination="@id/mySettingsFragments"
+    tools:ignore="UnusedNavigation">
+
+
+    <fragment
+        android:id="@+id/mySettingsFragments"
+        android:name="com.techlogix.pacaps.fragments.settingsFragments.MySettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_my_settings">
+
+        <action
+            android:id="@+id/gotoMyProfileFrag"
+            app:destination="@id/myProfileFragment"
+            app:enterAnim="@anim/left_to_right"
+            app:popEnterAnim="@anim/right_to_left" />
+
+
+        <action
+            android:id="@+id/gotoMyFavFrag"
+            app:destination="@id/myFavoritesFragment"
+            app:enterAnim="@anim/left_to_right"
+            app:popEnterAnim="@anim/right_to_left" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/myProfileFragment"
+        tools:layout="@layout/fragment_my_profile"
+        android:label="@string/my_profile"
+        android:name="com.techlogix.pacaps.fragments.settingsFragments.MyProfileFragment">
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/myFavoritesFragment"
+        tools:layout="@layout/fragment_my_favorites"
+        android:label="@string/my_profile"
+        android:name="com.techlogix.pacaps.fragments.settingsFragments.MyFavoritesFragment">
+
+
+
+    </fragment>
+
+</navigation>

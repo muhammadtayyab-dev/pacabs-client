@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/infoCardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp">
+
+
+            <TextView
+                android:id="@+id/userNameTv"
+                style="@style/titleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hello"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/rateTv"
+                style="@style/titleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5.0"
+                app:layout_constraintStart_toStartOf="@+id/userNameTv"
+                app:layout_constraintTop_toBottomOf="@+id/userNameTv" />
+
+            <RatingBar
+                android:id="@+id/rateBar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:stepSize="0.1"
+                app:layout_constraintBottom_toBottomOf="@+id/rateTv"
+                app:layout_constraintStart_toEndOf="@+id/rateTv"
+                app:layout_constraintTop_toTopOf="@+id/rateTv" />
+
+            <TextView
+                android:id="@+id/distanceTv"
+                style="@style/titleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/_15sdp"
+                android:text="(9)- 3.1 KM"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/rateBar"
+                app:layout_constraintTop_toTopOf="@+id/rateBar" />
+
+            <TextView
+                android:id="@+id/serviceTypeTv"
+                style="@style/titleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Taxi Serivce - Dehli-"
+                app:layout_constraintEnd_toStartOf="@+id/idnavigateImg"
+                app:layout_constraintStart_toStartOf="@+id/rateTv"
+                app:layout_constraintTop_toBottomOf="@+id/rateTv" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <HorizontalScrollView
+        android:id="@+id/tripInfoHorizontalView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="@+id/infoCardView"
+        app:layout_constraintStart_toStartOf="@+id/infoCardView"
+        app:layout_constraintTop_toBottomOf="@+id/infoCardView">
+
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+            android:id="@+id/tripInfoToggleGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:alignContent="center"
+            app:alignItems="center"
+            app:flexWrap="wrap"
+            app:justifyContent="space_between"
+            app:toggle_requiredAmount="1"
+
+            app:toggle_selectableAmount="1">
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/lcoalBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_35sdp"
+                app:layout_flexShrink="0"
+                app:toggle_backgroundColor="@color/colorYellowLight"
+                app:toggle_btnCornerRadius="5dp"
+                app:toggle_fontFamily="/fonts/quicksand_regular.otf"
+                app:toggle_selectedBackgroundColor="@color/colorWhite"
+                app:toggle_selectedTextColor="@color/colorBlack"
+                app:toggle_text="@string/local"
+                app:toggle_textAlignment="center"
+                app:toggle_textColor="@color/colorBlackLight" />
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/oneWayDropBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_35sdp"
+                app:layout_flexShrink="0"
+                app:toggle_backgroundColor="@color/colorYellowLight"
+                app:toggle_btnCornerRadius="5dp"
+
+                app:toggle_fontFamily="/fonts/quicksand_regular.otf"
+                app:toggle_selectedBackgroundColor="@color/colorWhite"
+                app:toggle_selectedTextColor="@color/colorBlack"
+                app:toggle_text="One-way Drop"
+                app:toggle_textAlignment="center"
+                app:toggle_textColor="@color/colorBlackLight" />
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/roundtrip"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_35sdp"
+                app:layout_flexShrink="0"
+                app:toggle_backgroundColor="@color/colorYellowLight"
+                app:toggle_btnCornerRadius="5dp"
+                app:toggle_fontFamily="/fonts/quicksand_regular.otf"
+                app:toggle_selectedBackgroundColor="@color/colorWhite"
+                app:toggle_selectedTextColor="@color/colorBlack"
+                app:toggle_text="Round Trip"
+                app:toggle_textAlignment="center"
+                app:toggle_textColor="@color/colorBlackLight" />
+
+        </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+
+    </HorizontalScrollView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tripInfoLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/white_background_corner"
+        app:layout_constraintBottom_toTopOf="@+id/toogleButtonCL"
+        app:layout_constraintEnd_toEndOf="@+id/tripInfoHorizontalView"
+        app:layout_constraintStart_toStartOf="@+id/tripInfoHorizontalView"
+        app:layout_constraintTop_toBottomOf="@+id/tripInfoHorizontalView">
+
+        <RelativeLayout
+            android:id="@+id/yourAddressTv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/keyboardImg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:contentDescription="@string/app_name"
+                app:srcCompat="@drawable/ic_keyboard" />
+
+            <TextView
+                android:id="@+id/addressTv"
+                style="@style/titleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@+id/keyboardImg"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/_15sdp"
+                android:text="SiriNagar, Simlaa" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/yourLocationTv"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_35sdp"
+            app:layout_constraintEnd_toStartOf="@+id/nowCardView"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/yourAddressTv">
+
+            <ImageView
+                android:id="@+id/locImg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:contentDescription="@string/app_name"
+                app:srcCompat="@drawable/ic_ocation_on" />
+
+            <TextView
+                android:id="@+id/locTv"
+                style="@style/titleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@+id/locImg"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/_15sdp"
+                android:text="SiriNagar, Simlaa" />
+        </RelativeLayout>
+
+
+        <View
+            android:id="@+id/div"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_div_dark"
+            app:layout_constraintEnd_toEndOf="@+id/yourAddressTv"
+            app:layout_constraintStart_toStartOf="@+id/yourAddressTv"
+            app:layout_constraintTop_toBottomOf="@+id/yourLocationTv" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/nowCardView"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardElevation="@dimen/_10sdp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="@+id/div"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/div">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:srcCompat="@drawable/ic_alarm_clock" />
+
+                <TextView
+                    style="@style/titleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/now" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/timerImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/div"
+            app:srcCompat="@drawable/ic_timer" />
+
+        <TextView
+            android:id="@+id/timerTv"
+            style="@style/headlingStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:text="1hr 10 Km package"
+            app:layout_constraintStart_toEndOf="@+id/timerImg"
+            app:layout_constraintTop_toTopOf="@+id/timerImg" />
+
+        <TextView
+            android:id="@+id/packagesInfoTv"
+            style="@style/titleStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Extra charges on exceeding packages"
+            app:layout_constraintEnd_toStartOf="@+id/nowCardView"
+            app:layout_constraintStart_toStartOf="@+id/timerTv"
+            app:layout_constraintTop_toBottomOf="@+id/timerTv" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/timeInKmRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/packagesInfoTv"
+            app:layout_constraintTop_toBottomOf="@+id/packagesInfoTv" />
+
+        <View
+            android:id="@+id/div2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@color/gray_div_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeInKmRecyclerView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cabTypeRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_20sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/timerTv"
+            app:layout_constraintTop_toBottomOf="@+id/div2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/toogleButtonCL"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/white_background_corner"
+        android:elevation="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioGroup
+            android:id="@+id/bookTypeRG"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+
+            <RadioButton
+                android:id="@+id/bookNowRb"
+                style="@style/ToggleButton"
+                android:layout_weight="1"
+                android:text="@string/book_now" />
+
+            <RadioButton
+                android:id="@+id/bookLaterRb"
+                style="@style/ToggleButton"
+                android:layout_weight="1"
+                android:text="@string/book_later" />
+        </RadioGroup>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

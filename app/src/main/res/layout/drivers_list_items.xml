@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_10sdp">
+
+
+    <com.techlogix.pacaps.customViews.CircleImageView
+        android:id="@+id/driverProfileImg"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:scaleType="centerCrop"
+        app:civ_border_color="@color/gray_div_dark"
+        app:civ_border_width="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+
+        android:id="@+id/driverNameTv"
+        style="@style/titleStyle"
+        android:layout_width="0dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/_15sdp"
+        android:text="Arshad"
+        app:layout_constraintBottom_toBottomOf="@+id/driverProfileImg"
+        app:layout_constraintEnd_toStartOf="@+id/driverRating"
+        app:layout_constraintStart_toEndOf="@+id/driverProfileImg"
+        app:layout_constraintTop_toTopOf="@+id/driverProfileImg" />
+
+    <RatingBar
+        android:id="@+id/driverRating"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:rating="2.5"
+        app:layout_constraintEnd_toStartOf="@+id/idnavigateImg"
+        app:layout_constraintTop_toTopOf="@+id/idnavigateImg" />
+
+    <TextView
+        android:id="@+id/numberRidesTv"
+        style="@style/titleStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:text="120 Rides"
+        app:layout_constraintEnd_toEndOf="@+id/driverRating"
+        app:layout_constraintStart_toStartOf="@+id/driverRating"
+        app:layout_constraintTop_toBottomOf="@+id/driverRating" />
+
+    <ImageView
+        android:id="@+id/idnavigateImg"
+        android:layout_width="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
+        android:padding="@dimen/_10sdp"
+        android:src="@drawable/ic_baseline_navigation_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@color/gray_div_dark"
+        app:layout_constraintTop_toBottomOf="@+id/idnavigateImg"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dashboard_nav_graph"
+    app:startDestination="@id/dashboardStep1Frag"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/dashboardStep1Frag"
+        android:name="com.techlogix.pacaps.fragments.dashboardFragments.DashboardFragmentStep1"
+        android:label="@string/dashboardStep1"
+        tools:layout="@layout/fragment_dashboard_step1">
+
+        <action
+            android:id="@+id/dashboardStep1Action"
+            app:destination="@id/dashboardStep2Frag"
+            app:enterAnim="@anim/left_to_right"
+            app:popEnterAnim="@anim/right_to_left" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/dashboardStep2Frag"
+        android:name="com.techlogix.pacaps.fragments.dashboardFragments.DashboardFragmentStep2"
+        android:label="@string/dashboadStep2"
+        tools:layout="@layout/fragment_dashboard_step2" />
+</navigation>
