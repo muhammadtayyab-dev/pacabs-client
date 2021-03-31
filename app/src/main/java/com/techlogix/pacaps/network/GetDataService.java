@@ -6,6 +6,8 @@ import com.techlogix.pacaps.models.ceateUserModel.CreateUserRequestModel;
 import com.techlogix.pacaps.models.ceateUserModel.CreateUserResponseModel;
 import com.techlogix.pacaps.models.ceateUserModel.VerifyUserOtp;
 import com.techlogix.pacaps.models.ceateUserModel.VerifyUserWithMobileAndPasswoadRequest;
+import com.techlogix.pacaps.models.orderApiModels.GetOrderIdRequestModel;
+import com.techlogix.pacaps.models.orderApiModels.GetOrderIdResponseModel;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -21,5 +23,8 @@ public interface GetDataService {
 
     @POST("user/verifyuser")
     Call<GenericResponseModel<CreateUserResponseModel>> verifyWithNumberPassowwrd(@Body VerifyUserWithMobileAndPasswoadRequest request);
+
+    @POST("v1/orders")
+    Call<GetOrderIdResponseModel> getOrderId(@Body GetOrderIdRequestModel request);
 
 }

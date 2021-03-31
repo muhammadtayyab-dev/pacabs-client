@@ -11,6 +11,8 @@ import com.techlogix.pacaps.models.ceateUserModel.CreateUserRequestModel;
 import com.techlogix.pacaps.models.ceateUserModel.CreateUserResponseModel;
 import com.techlogix.pacaps.models.ceateUserModel.VerifyUserOtp;
 import com.techlogix.pacaps.models.ceateUserModel.VerifyUserWithMobileAndPasswoadRequest;
+import com.techlogix.pacaps.models.orderApiModels.GetOrderIdRequestModel;
+import com.techlogix.pacaps.models.orderApiModels.GetOrderIdResponseModel;
 
 import org.json.JSONException;
 
@@ -22,7 +24,7 @@ import retrofit2.Retrofit;
 
 public class APIManager {
     public static APIManager instance = new APIManager();
-    public static Retrofit retrofit;
+    public static Retrofit retrofit, orderRetrofit;
 
     public GenericResponseModel getResponseModel() {
         return responseModel;
@@ -37,6 +39,7 @@ public class APIManager {
 
     private APIManager() {
         retrofit = ClientInstance.getRetrofitInstance();
+        orderRetrofit = ClientInstance.getRetrofitInstanceForOrderAPI();
     }
 
 
@@ -60,12 +63,18 @@ public class APIManager {
         sendResultGeneric(result, callback, 0);
     }
 
+
+    public void getOrderIdForOnlinePayment(GetOrderIdRequestModel requestModel, RazorPayCallback callback) {
+        GetDataService service = orderRetrofit.create(GetDataService.class);
+        Call<GetOrderIdResponseModel> result = service.getOrderId(requestModel);
+        sendResultGenericRazorPay(result, callback, 0);
+    }
+
     private <T> void sendResultGeneric(Call<T> call, final CallbackGenric result, int rc) {
         PacapDialog dialog = null;
         if (Objects.requireNonNull(PACAP.Companion.getINSTANCE()).getBaseActivity() != null && !Objects.requireNonNull(PACAP.Companion.getINSTANCE().getBaseActivity()).isFinishing()) {
             dialog = new PacapDialog(PACAP.Companion.getINSTANCE().getBaseActivity());
         }
-
         if (dialog != null)
             dialog.show();
         final Dialog finalDialog = dialog;
@@ -74,7 +83,6 @@ public class APIManager {
             public void onResponse(Call<T> call, Response<T> response) {
                 if (finalDialog != null)
                     finalDialog.dismiss();
-
                 if (response.code() == 200 || response.code() == 201) {
                     GenericResponseModel<T> genericResponseModel = (GenericResponseModel<T>) response.body();
                     if (!genericResponseModel.getStatus()) {
@@ -87,14 +95,9 @@ public class APIManager {
                         result.onResult(genericResponseModel, rc);
                     }
                 } else {
-
                     ((BaseActivity) PACAP.Companion.getINSTANCE().getBaseActivity()).showErrorDialog("Error", response.message(), new GenericResponseModel(false, response.message(), null, response.message()));
 
-//                    result.onResult(new GenericResponseModel(false, response.message(), null, response.message()), rc);
-
                 }
-
-
             }
 
             @Override
@@ -103,17 +106,48 @@ public class APIManager {
                     finalDialog.dismiss();
                 ErrorDescription errorDescription = ErrorDescription.GENERAL_ERROR;
                 if (t instanceof java.net.UnknownHostException || t instanceof java.net.ConnectException) {
-
                     errorDescription = ErrorDescription.SERVER_RESPONDING;
                 } else if (t instanceof JSONException) {
-
                     errorDescription = ErrorDescription.INVALID_RESPONCE;
                 }
-
                 ((BaseActivity) PACAP.Companion.getINSTANCE().getBaseActivity()).showErrorDialog("Error", errorDescription.ed.desc, new GenericResponseModel(false, errorDescription.ed.desc, null, errorDescription.ed.desc));
+                t.printStackTrace();
+            }
+        });
+    }
 
+    private <T> void sendResultGenericRazorPay(Call<T> call, final RazorPayCallback result, int rc) {
+        PacapDialog dialog = null;
+        if (Objects.requireNonNull(PACAP.Companion.getINSTANCE()).getBaseActivity() != null && !Objects.requireNonNull(PACAP.Companion.getINSTANCE().getBaseActivity()).isFinishing()) {
+            dialog = new PacapDialog(PACAP.Companion.getINSTANCE().getBaseActivity());
+        }
+        if (dialog != null)
+            dialog.show();
+        final Dialog finalDialog = dialog;
+        call.enqueue(new retrofit2.Callback<T>() {
+            @Override
+            public void onResponse(Call<T> call, Response<T> response) {
+                if (finalDialog != null)
+                    finalDialog.dismiss();
+                if (response.code() == 200 || response.code() == 201) {
+                    result.onGetOrderID((GetOrderIdResponseModel) response.body());
+                } else {
+                    ((BaseActivity) PACAP.Companion.getINSTANCE().getBaseActivity()).showErrorDialog("Error", response.message(), new GenericResponseModel(false, response.message(), null, response.message()));
 
-//                result.onResult(new GenericResponseModel(false, errorDescription.ed.desc, null, errorDescription.ed.desc), rc);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<T> call, Throwable t) {
+                if (finalDialog != null)
+                    finalDialog.dismiss();
+                ErrorDescription errorDescription = ErrorDescription.GENERAL_ERROR;
+                if (t instanceof java.net.UnknownHostException || t instanceof java.net.ConnectException) {
+                    errorDescription = ErrorDescription.SERVER_RESPONDING;
+                } else if (t instanceof JSONException) {
+                    errorDescription = ErrorDescription.INVALID_RESPONCE;
+                }
+                ((BaseActivity) PACAP.Companion.getINSTANCE().getBaseActivity()).showErrorDialog("Error", errorDescription.ed.desc, new GenericResponseModel(false, errorDescription.ed.desc, null, errorDescription.ed.desc));
                 t.printStackTrace();
             }
         });
@@ -128,5 +162,9 @@ public class APIManager {
         void onResult(GenericResponseModel<T> response, int requestCode);
 
 //        void onError(String error, int requestCode);
+    }
+
+    public interface RazorPayCallback {
+        void onGetOrderID(GetOrderIdResponseModel responseModel);
     }
 }

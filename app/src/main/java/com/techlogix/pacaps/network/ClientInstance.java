@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ClientInstance {
 
-    private static Retrofit retrofit;
+    private static Retrofit retrofit, retrofitForOrderAPI;
     private static final String BASE_URL = "http://ec2-13-233-196-58.ap-south-1.compute.amazonaws.com:3002/api/v1/";
 
 
@@ -42,6 +42,26 @@ public class ClientInstance {
             retrofit = builder.build();
         }
         return retrofit;
+    }
+
+    public static Retrofit getRetrofitInstanceForOrderAPI() {
+        if (retrofitForOrderAPI == null) {
+
+            Retrofit.Builder builder = new Retrofit.Builder()
+                    .baseUrl("https://api.razorpay.com/")
+                    .addConverterFactory(GsonConverterFactory.create());
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
+            okHttpClientBuilder.addInterceptor(new BasicAuthInterceptor());
+            okHttpClientBuilder.connectTimeout(10, TimeUnit.MINUTES);
+            okHttpClientBuilder.readTimeout(10, TimeUnit.MINUTES);
+//            okHttpClientBuilder.certificatePinner(certificatePinner);
+            okHttpClientBuilder.addInterceptor(interceptor);
+            builder.client(okHttpClientBuilder.build());
+            retrofitForOrderAPI = builder.build();
+        }
+        return retrofitForOrderAPI;
     }
 
     private static X509TrustManager getTrustManager() throws Exception {

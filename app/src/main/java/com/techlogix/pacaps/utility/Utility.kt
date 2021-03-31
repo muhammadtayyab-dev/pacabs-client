@@ -20,6 +20,7 @@ class Utility {
         val PROVIDER_CAB_CAR_TYPE_RECYCLER_TYPE: Int = 2
         val NAV_ITEMS: Int = 3
         val MY_RIDES: Int = 4
+        val RAZORPAY: Int = 9977
         val OFFERS_DISCOUNT: Int = 5
         val MY_FAVORITES: Int = 6
         fun bitmapDescriptorFromVector(context: Context,
