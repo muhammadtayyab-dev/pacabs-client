@@ -135,6 +135,7 @@ class DashboardMapsFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.Co
 
     override fun onLocationChanged(p0: Location) {
             try {
+                Utility.currentUserLoc = LatLng(p0.latitude, p0.longitude)
                 val markerOption = MarkerOptions()
                 markerOption.position(LatLng(p0.latitude, p0.longitude))
                 markerOption.icon(Utility.bitmapDescriptorFromVector(requireActivity(),

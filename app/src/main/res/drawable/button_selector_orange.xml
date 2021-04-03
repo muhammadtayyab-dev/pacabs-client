@@ -6,7 +6,7 @@
 
             <solid android:color="@color/colorOrangeDark" />
 
-            <corners android:radius="10dp" />
+            <corners android:radius="5dp" />
 
         </shape>
     </item>
@@ -17,7 +17,7 @@
 
             <solid android:color="@color/colorOrangeLight" />
 
-            <corners android:radius="10dp" />
+            <corners android:radius="5dp" />
 
         </shape>
 

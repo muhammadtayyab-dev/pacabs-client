@@ -9,8 +9,10 @@ import com.techlogix.pacaps.R
 import com.techlogix.pacaps.activities.BaseActivity
 import com.techlogix.pacaps.activities.DashboardActivity
 import com.techlogix.pacaps.models.GenericResponseModel
+import com.techlogix.pacaps.models.ceateUserModel.CreateUserResponseModel
 import com.techlogix.pacaps.models.ceateUserModel.VerifyUserWithMobileAndPasswoadRequest
 import com.techlogix.pacaps.network.APIManager
+import com.techlogix.pacaps.utility.SharePrefData
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment<T> : Fragment(), APIManager.CallbackGenric<T> {
@@ -56,8 +58,14 @@ class LoginFragment<T> : Fragment(), APIManager.CallbackGenric<T> {
     }
 
     override fun onResult(response: GenericResponseModel<T>?, requestCode: Int) {
-        baseActivity?.openActivity(DashboardActivity::class.java, null)
-        requireActivity().finish()
+        if (response?.result is CreateUserResponseModel) {
+            SharePrefData.getInstance().userId = (response.result as CreateUserResponseModel).id
+            SharePrefData.getInstance().userNum =
+                (response.result as CreateUserResponseModel).mobile
+            SharePrefData.getInstance().userName = (response.result as CreateUserResponseModel).name
+            baseActivity?.openActivity(DashboardActivity::class.java, null)
+            requireActivity().finish()
+        }
 
     }
 

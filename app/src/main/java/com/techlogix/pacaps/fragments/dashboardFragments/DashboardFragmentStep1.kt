@@ -28,6 +28,8 @@ import com.techlogix.pacaps.R
 import com.techlogix.pacaps.utility.PermissionUtils
 import com.techlogix.pacaps.utility.Utility
 import kotlinx.android.synthetic.main.fragment_dashboard_step1.*
+import kotlinx.android.synthetic.main.fragment_dashboard_step1.taxiProviderSingleToggle
+import kotlinx.android.synthetic.main.fragment_dashboard_step2.*
 
 class DashboardFragmentStep1 : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -54,6 +56,8 @@ class DashboardFragmentStep1 : Fragment(), OnMapReadyCallback, GoogleApiClient.C
             mapFragment =
                 childFragmentManager.findFragmentById(R.id.dashboardMap) as SupportMapFragment;
             mapFragment?.getMapAsync(this)
+            taxiProviderSingleToggle.selectButton(R.id.taxiBtn)
+            taxiProviderSingleToggle.setOnSelectListener {}
 
         } else {
             PermissionUtils.requestLocationPermissions(activity, 1111)
@@ -143,6 +147,7 @@ class DashboardFragmentStep1 : Fragment(), OnMapReadyCallback, GoogleApiClient.C
 
     override fun onLocationChanged(p0: Location) {
         try {
+            Utility.currentUserLoc = LatLng(p0.latitude, p0.longitude)
             val markerOption = MarkerOptions()
             markerOption.position(LatLng(p0.latitude, p0.longitude))
             markerOption.icon(Utility.bitmapDescriptorFromVector(requireContext(),

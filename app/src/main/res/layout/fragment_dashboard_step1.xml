@@ -28,39 +28,44 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+            android:id="@+id/taxiProviderSingleToggle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
 
-
-        <Button
-            android:id="@+id/taxiBtn"
-            style="@style/buttonStyle"
-            android:layout_width="0dp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:background="@drawable/button_selector_yellow"
-            android:paddingStart="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_10sdp"
-            android:text="@string/taxi"
-            app:layout_constraintEnd_toStartOf="@+id/driverBtn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lookingDriverTv" />
-
-
-        <Button
-            android:id="@+id/driverBtn"
-            style="@style/buttonStyle"
-            android:layout_width="0dp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:background="@drawable/button_selector_yellow"
-            android:paddingStart="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_10sdp"
-            android:text="@string/driver"
+            app:justifyContent="space_between"
+            app:layout_constraintTop_toBottomOf="@+id/lookingDriverTv"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/taxiBtn"
-            app:layout_constraintTop_toBottomOf="@+id/lookingDriverTv" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:toggle_requiredAmount="1"
+            app:toggle_selectableAmount="1">
 
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/taxiBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_35sdp"
+                app:toggle_backgroundColor="@color/gray_div_dark"
+                app:toggle_btnCornerRadius="5dp"
+                app:toggle_selectedBackgroundColor="@color/colorPrimary"
+                app:toggle_selectedTextColor="@color/colorWhite"
+                app:toggle_text="          Taxi          "
+                app:toggle_textAlignment="center"
+                app:toggle_textColor="@color/colorBlackLight" />
+
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                android:id="@+id/driverBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_35sdp"
+                app:toggle_backgroundColor="@color/gray_div_dark"
+                app:toggle_btnCornerRadius="5dp"
+                app:toggle_selectedBackgroundColor="@color/colorPrimary"
+                app:toggle_selectedTextColor="@color/colorWhite"
+                app:toggle_text="          Driver          "
+                app:toggle_textAlignment="center"
+                app:toggle_textColor="@color/colorBlackLight" />
+
+        </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 
         <Button
             android:id="@+id/searchBtn"
@@ -71,9 +76,9 @@
             android:background="@drawable/button_selector_yellow"
             android:text="@string/search"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/driverBtn"
-            app:layout_constraintStart_toStartOf="@+id/taxiBtn"
-            app:layout_constraintTop_toBottomOf="@+id/taxiBtn" />
+            app:layout_constraintEnd_toEndOf="@+id/taxiProviderSingleToggle"
+            app:layout_constraintStart_toStartOf="@+id/taxiProviderSingleToggle"
+            app:layout_constraintTop_toBottomOf="@+id/taxiProviderSingleToggle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

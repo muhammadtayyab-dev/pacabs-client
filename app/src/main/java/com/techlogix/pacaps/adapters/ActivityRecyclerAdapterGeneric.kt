@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.techlogix.pacaps.R
 import com.techlogix.pacaps.models.cabAndDriverInformationModels.CabDetailsInformationModel
 import com.techlogix.pacaps.models.NavMenuModel
-import com.techlogix.pacaps.models.favoritesModels.MyFavoritesModel
+import com.techlogix.pacaps.models.favoritesModels.MyFavoritesResponseModel
 import com.techlogix.pacaps.models.offerAndDisountModels.OffersAndDiscoutModel
 import com.techlogix.pacaps.models.rides.MyRidesModel
 import com.techlogix.pacaps.utility.GenericCallback
@@ -35,7 +35,7 @@ class ActivityRecyclerAdapterGeneric<T>(var type: Int,
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.offer_discounts_items_layout, parent, false)
             return MyOffersAndDiscountsHolder(view);
-        }  else if (type == Utility.MY_FAVORITES) {
+        } else if (type == Utility.MY_FAVORITES) {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.favorites_items_layout, parent, false)
             return MyFavoritesHolder(view);
@@ -79,14 +79,13 @@ class ActivityRecyclerAdapterGeneric<T>(var type: Int,
             holder.valideRsTv.text = obj.discountedPrice
             holder.oldRsTv.text = obj.originalPrice
             holder.oldRsTv.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG)
-        }else if (holder is MyFavoritesHolder && obj is MyFavoritesModel) {
-            holder.profileImg.setImageResource(obj.icon)
-            holder.addresTv.text = obj.address
-            holder.addressTypeTv.text = obj.addressType
+        } else if (holder is MyFavoritesHolder && obj is MyFavoritesResponseModel) {
+            holder.profileImg.setImageResource(obj.getLoctionImg())
+            holder.addresTv.text = obj.location
+            holder.addressTypeTv.text = obj.name
 
         }
     }
-
 
     class MyNavItemsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val iconImg = itemView.findViewById(R.id.iconImg) as ImageView

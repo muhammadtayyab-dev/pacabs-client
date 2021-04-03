@@ -42,9 +42,11 @@ class RidePaymentMethodFragment : Fragment(), PaymentResultListener, APIManager.
                 val notes = NotesForOrderID("PACAB-PAYMENT", "PACAB-PAYMENT")
                 val requestModel = GetOrderIdRequestModel(100, "INR", "PACAB-RECEIPT", 1, notes)
                 APIManager.getInstance().getOrderIdForOnlinePayment(requestModel, this)
+                it.isSelected = false
             } else {
                 if (it.isSelected) {
                     findNavController().navigate(RidePaymentMethodFragmentDirections.gotoPaymentConfirmationFrag())
+                    it.isSelected = false
                 }
             }
 

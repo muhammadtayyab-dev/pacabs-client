@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.SettingsActivity"></activity>
+        <activity android:name=".activities.SettingsActivity"/>
         <activity android:name=".activities.OffersAndDiscountActivity" />
         <activity
             android:name=".activities.InviteFriendsActivity"
@@ -70,6 +70,8 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/map_key" />
+
+
     </application>
 
 </manifest>

@@ -11,11 +11,14 @@ import com.techlogix.pacaps.models.ceateUserModel.CreateUserRequestModel;
 import com.techlogix.pacaps.models.ceateUserModel.CreateUserResponseModel;
 import com.techlogix.pacaps.models.ceateUserModel.VerifyUserOtp;
 import com.techlogix.pacaps.models.ceateUserModel.VerifyUserWithMobileAndPasswoadRequest;
+import com.techlogix.pacaps.models.favoritesModels.CreateFavLoctionsRequestModel;
+import com.techlogix.pacaps.models.favoritesModels.MyFavoritesResponseModel;
 import com.techlogix.pacaps.models.orderApiModels.GetOrderIdRequestModel;
 import com.techlogix.pacaps.models.orderApiModels.GetOrderIdResponseModel;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -68,6 +71,20 @@ public class APIManager {
         GetDataService service = orderRetrofit.create(GetDataService.class);
         Call<GetOrderIdResponseModel> result = service.getOrderId(requestModel);
         sendResultGenericRazorPay(result, callback, 0);
+    }
+
+
+    public void createFavLov(CreateFavLoctionsRequestModel requestModel, CallbackGenric callback) {
+        GetDataService service = retrofit.create(GetDataService.class);
+        Call<GenericResponseModel<MyFavoritesResponseModel>> result = service.createFavLov(requestModel);
+        sendResultGeneric(result, callback, 0);
+    }
+
+
+    public void getAllFavLocs(int userId, CallbackGenric callback) {
+        GetDataService service = retrofit.create(GetDataService.class);
+        Call<GenericResponseModel<ArrayList<MyFavoritesResponseModel>>> result = service.getAllFavLoc(userId);
+        sendResultGeneric(result, callback, 1);
     }
 
     private <T> void sendResultGeneric(Call<T> call, final CallbackGenric result, int rc) {

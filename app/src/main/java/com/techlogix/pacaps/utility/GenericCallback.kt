@@ -3,6 +3,6 @@ package com.techlogix.pacaps.utility
 import androidx.annotation.Nullable
 import java.util.*
 
-interface GenericCallback<T> {
+interface GenericCallback<Any> {
     fun GenericCallType(T: Any)
 }

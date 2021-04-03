@@ -7,19 +7,24 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.maps.android.SphericalUtil
 import java.util.regex.Pattern
 
 
 class Utility {
 
     companion object {
-        val HEADER_TYPE=0
+        val PLACES_CODE: Int=1214
+        val HEADER_TYPE = 0
         val SERVICE_PROVIDER_TYPE: Int = 11
         val DRIVER_TYPE: Int = 12
         val PROVIDER_CAB_TIME_IN_KM_RECYCLER_TYPE: Int = 1
         val PROVIDER_CAB_CAR_TYPE_RECYCLER_TYPE: Int = 2
         val NAV_ITEMS: Int = 3
         val MY_RIDES: Int = 4
+        var currentUserLoc: LatLng? = null;
         val RAZORPAY: Int = 9977
         val OFFERS_DISCOUNT: Int = 5
         val MY_FAVORITES: Int = 6
@@ -46,6 +51,16 @@ class Utility {
             val pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE)
             val matcher = pattern.matcher(email)
             return matcher.matches()
+        }
+
+        fun getBounds(): LatLngBounds {
+            val distanceFromCenterToCorner = 5 * Math.sqrt(2.0)
+            val southwestCorner =
+                SphericalUtil.computeOffset(currentUserLoc, distanceFromCenterToCorner, 225.0)
+            val northeastCorner =
+                SphericalUtil.computeOffset(currentUserLoc, distanceFromCenterToCorner, 45.0)
+
+            return LatLngBounds(southwestCorner,northeastCorner)
         }
     }
 }

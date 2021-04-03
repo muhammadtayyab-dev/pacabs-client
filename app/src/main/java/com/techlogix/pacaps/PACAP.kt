@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import com.techlogix.pacaps.activities.BaseActivity
+import com.techlogix.pacaps.utility.SharePrefData
 
 class PACAP : Application() {
 
@@ -18,6 +19,7 @@ class PACAP : Application() {
         super.onCreate()
         INSTANCE = this
         context = this
+        SharePrefData.getInstance().setContext(this)
 
     }
 

@@ -9,11 +9,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/MyFavoritesRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
         android:orientation="vertical"
+        android:paddingBottom="@dimen/_35sdp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/div"/>
 
 
     <View
@@ -24,16 +27,20 @@
         android:background="@color/gray_div_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MyFavoritesRecycler" />
+        app:layout_constraintBottom_toTopOf="@+id/rootLayoutAddToFav"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rootLayout"
+        android:id="@+id/rootLayoutAddToFav"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:padding="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/div"
-        app:layout_constraintStart_toStartOf="@+id/div"
-        app:layout_constraintTop_toBottomOf="@+id/div">
+        app:layout_constraintStart_toStartOf="@+id/div">
 
 
         <ImageView
