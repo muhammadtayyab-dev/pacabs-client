@@ -22,6 +22,9 @@ class ActivityRecyclerAdapterGeneric<T>(var type: Int,
                                         var arraylist: ArrayList<T>,
                                         var genericCall: GenericCallback<Any>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    var recycler: RecyclerView? = null
+    var lastObj: T? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (type == Utility.NAV_ITEMS) {
             val view = LayoutInflater.from(parent.context)
@@ -46,12 +49,28 @@ class ActivityRecyclerAdapterGeneric<T>(var type: Int,
         }
     }
 
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        this.recycler = recyclerView;
+    }
+
     override fun getItemCount(): Int {
         return arraylist.size
     }
 
+    fun updateList(obj: T) {
+        arraylist.add(obj)
+        notifyItemInserted(arraylist.size)
+        recycler?.smoothScrollToPosition(arraylist.size)
+    }
+
+    fun notifiItemRemove() {
+        notifyItemRemoved(arraylist.indexOf(lastObj))
+        arraylist.remove(lastObj)
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        var obj = arraylist.get(holder.adapterPosition)
+        val obj = arraylist.get(holder.adapterPosition)
         if (holder is MyNavItemsHolder && obj is NavMenuModel) {
             when (obj.isSelected) {
                 true -> holder.rootLayout.setBackgroundColor(ContextCompat.getColor(holder.iconImg.context,
@@ -83,6 +102,11 @@ class ActivityRecyclerAdapterGeneric<T>(var type: Int,
             holder.profileImg.setImageResource(obj.getLoctionImg())
             holder.addresTv.text = obj.location
             holder.addressTypeTv.text = obj.name
+            holder.deleteImg.setOnClickListener {
+                genericCall.GenericCallType(obj)
+                lastObj = obj
+
+            }
 
         }
     }

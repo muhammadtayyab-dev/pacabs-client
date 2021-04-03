@@ -14,17 +14,17 @@ import com.techlogix.pacaps.adapters.ActivityRecyclerAdapterGeneric
 import com.techlogix.pacaps.dialogs.AddLocationToFavDialog
 import com.techlogix.pacaps.models.GenericResponseModel
 import com.techlogix.pacaps.models.favoritesModels.CreateFavLoctionsRequestModel
+import com.techlogix.pacaps.models.favoritesModels.DeleteMyFavLocRequestModel
 import com.techlogix.pacaps.models.favoritesModels.MyFavoritesResponseModel
 import com.techlogix.pacaps.network.APIManager
 import com.techlogix.pacaps.utility.GenericCallback
 import com.techlogix.pacaps.utility.SharePrefData
 import com.techlogix.pacaps.utility.Utility
 import kotlinx.android.synthetic.main.fragment_my_favorites.*
-import java.util.ArrayList
 
 class MyFavoritesFragment<T> : Fragment(), GenericCallback<Any>, View.OnClickListener,
     APIManager.CallbackGenric<Any> {
-    var myFavAdapter: ActivityRecyclerAdapterGeneric<Any>? = null
+    var myFavAdapter: ActivityRecyclerAdapterGeneric<T>? = null
     var addToFavDialog: AddLocationToFavDialog? = null
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -41,41 +41,14 @@ class MyFavoritesFragment<T> : Fragment(), GenericCallback<Any>, View.OnClickLis
     private fun initViews(view: View) {
         rootLayoutAddToFav.setOnClickListener(this)
         (requireActivity() as SettingsActivity<T>).setText("Settings-Favorites")
-        val myFavArray = arrayListOf<MyFavoritesResponseModel>()
-
         APIManager.getInstance().getAllFavLocs(SharePrefData.getInstance().userId, this)
-        myFavArray.add(MyFavoritesResponseModel(121,
-            1008,
-            "Work",
-            context?.resources?.getString(R.string.dummu_loc)!!,
-            121.12,
-            121.23,
-            "2/2/2021",
-            "5/2/2021"))
-        myFavArray.add(MyFavoritesResponseModel(121,
-            1008,
-            "Home",
-            context?.resources!!.getString(R.string.dummu_loc),
-            121.12,
-            121.23,
-            "2/2/2021",
-            "5/2/2021"))
-
-        myFavArray.add(MyFavoritesResponseModel(121,
-            1008,
-            "Soriya",
-            context?.resources!!.getString(R.string.dummu_loc),
-            121.12,
-            121.23,
-            "2/2/2021",
-            "5/2/2021"))
-
-
-//        MyFavoritesRecycler.adapter =
-//            ActivityRecyclerAdapterGeneric(Utility.MY_FAVORITES, myFavArray, this)
     }
 
     override fun GenericCallType(T: Any) {
+        if(T is MyFavoritesResponseModel){
+            val deleteReqModel=DeleteMyFavLocRequestModel(T.customerid,T.name,T.location,T.latitude,T.longitude)
+            APIManager.getInstance().deleteMyFavLov(T.id,deleteReqModel,this)
+        }
     }
 
     override fun onClick(view: View?) {
@@ -85,8 +58,6 @@ class MyFavoritesFragment<T> : Fragment(), GenericCallback<Any>, View.OnClickLis
                     override fun addlocCallback(place: Place, locType: String) {
                         if (place != null && locType != null) {
                             addLocInFav(locType, place)
-
-//                            APIManager.getInstance().createFavLov(createFavLoctionsRequestModel,MyFavoritesFragment)
                         }
                     }
                 })
@@ -107,7 +78,6 @@ class MyFavoritesFragment<T> : Fragment(), GenericCallback<Any>, View.OnClickLis
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Utility.PLACES_CODE) {
-
             val places = Autocomplete.getPlaceFromIntent(data!!)
             if (addToFavDialog?.isShowing!!) {
                 addToFavDialog?.setLocation(places)
@@ -118,15 +88,21 @@ class MyFavoritesFragment<T> : Fragment(), GenericCallback<Any>, View.OnClickLis
 
     override fun onResult(response: GenericResponseModel<Any>?, requestCode: Int) {
         if (requestCode == 0) {
-
-        } else if (requestCode == 2) {
+            myFavAdapter?.updateList(response?.result as T)
+        } else if (requestCode == 1) {
             setFavData(response)
+        }else if (requestCode == 2) {
+            myFavAdapter?.notifiItemRemove()
         }
     }
 
     private fun setFavData(response: GenericResponseModel<Any>?) {
-        val list=response?.result as ArrayList<MyFavoritesResponseModel>
-//        myFavAdapter=ActivityRecyclerAdapterGeneric<MyFavoritesResponseModel>(Utility.MY_FAVORITES,list,a)
+       var list= response?.result as ArrayList<MyFavoritesResponseModel>
+        myFavAdapter=ActivityRecyclerAdapterGeneric<T>(Utility.MY_FAVORITES, list as ArrayList<T>, this)
+//        MyFavoritesRecycler.adapter =
+//            ActivityRecyclerAdapterGeneric(Utility.MY_FAVORITES, list, this)
+        MyFavoritesRecycler.adapter=myFavAdapter
+
     }
 
 

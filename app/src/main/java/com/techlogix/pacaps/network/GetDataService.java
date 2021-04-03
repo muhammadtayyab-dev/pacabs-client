@@ -7,6 +7,7 @@ import com.techlogix.pacaps.models.ceateUserModel.CreateUserResponseModel;
 import com.techlogix.pacaps.models.ceateUserModel.VerifyUserOtp;
 import com.techlogix.pacaps.models.ceateUserModel.VerifyUserWithMobileAndPasswoadRequest;
 import com.techlogix.pacaps.models.favoritesModels.CreateFavLoctionsRequestModel;
+import com.techlogix.pacaps.models.favoritesModels.DeleteMyFavLocRequestModel;
 import com.techlogix.pacaps.models.favoritesModels.MyFavoritesResponseModel;
 import com.techlogix.pacaps.models.orderApiModels.GetOrderIdRequestModel;
 import com.techlogix.pacaps.models.orderApiModels.GetOrderIdResponseModel;
@@ -15,7 +16,9 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -36,8 +39,10 @@ public interface GetDataService {
     @POST("favourite")
     Call<GenericResponseModel<MyFavoritesResponseModel>> createFavLov(@Body CreateFavLoctionsRequestModel request);
 
-
     @GET("favourite/all/{customer_id}")
     Call<GenericResponseModel<ArrayList<MyFavoritesResponseModel>>> getAllFavLoc(@Path(value = "customer_id")int customerId);
+
+    @HTTP(method = "DELETE", path = "favourite/{fav_id}", hasBody = true)
+    Call<GenericResponseModel> deleteMyFavLov(@Path(value = "fav_id")int favId, @Body DeleteMyFavLocRequestModel requestModel);
 
 }

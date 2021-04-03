@@ -12,6 +12,7 @@ import com.techlogix.pacaps.models.ceateUserModel.CreateUserResponseModel;
 import com.techlogix.pacaps.models.ceateUserModel.VerifyUserOtp;
 import com.techlogix.pacaps.models.ceateUserModel.VerifyUserWithMobileAndPasswoadRequest;
 import com.techlogix.pacaps.models.favoritesModels.CreateFavLoctionsRequestModel;
+import com.techlogix.pacaps.models.favoritesModels.DeleteMyFavLocRequestModel;
 import com.techlogix.pacaps.models.favoritesModels.MyFavoritesResponseModel;
 import com.techlogix.pacaps.models.orderApiModels.GetOrderIdRequestModel;
 import com.techlogix.pacaps.models.orderApiModels.GetOrderIdResponseModel;
@@ -85,6 +86,13 @@ public class APIManager {
         GetDataService service = retrofit.create(GetDataService.class);
         Call<GenericResponseModel<ArrayList<MyFavoritesResponseModel>>> result = service.getAllFavLoc(userId);
         sendResultGeneric(result, callback, 1);
+    }
+
+
+    public void deleteMyFavLov(int favID, DeleteMyFavLocRequestModel requestModel, CallbackGenric callback) {
+        GetDataService service = retrofit.create(GetDataService.class);
+        Call<GenericResponseModel> result = service.deleteMyFavLov(favID,requestModel);
+        sendResultGeneric(result, callback, 2);
     }
 
     private <T> void sendResultGeneric(Call<T> call, final CallbackGenric result, int rc) {
