@@ -5,19 +5,13 @@ import android.content.Context
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import androidx.core.app.ActivityCompat.startActivityForResult
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.RectangularBounds
-import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.techlogix.pacaps.PACAP
 import com.techlogix.pacaps.R
-import com.techlogix.pacaps.activities.SettingsActivity
-import com.techlogix.pacaps.utility.GenericCallback
 import com.techlogix.pacaps.utility.Utility
 import kotlinx.android.synthetic.main.add_loc_fav_dialog_layout.*
 
@@ -45,7 +39,7 @@ class AddLocationToFavDialog(context: Context, callback: addLocAsFavCallback) : 
 
     override fun dismiss() {
         super.dismiss()
-        altertDialogCallback?.addlocCallback(place!!, locTypeTv.text.toString())
+        altertDialogCallback?.addlocCallback(place, locTypeTv.text.toString())
     }
 
     override fun onClick(view: View?) {
@@ -76,7 +70,7 @@ class AddLocationToFavDialog(context: Context, callback: addLocAsFavCallback) : 
     }
 
     interface addLocAsFavCallback {
-        fun addlocCallback(place: Place, locType: String)
+        fun addlocCallback(place: Place?, locType: String?)
     }
 
 

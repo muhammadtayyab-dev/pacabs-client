@@ -55,7 +55,7 @@ class MyFavoritesFragment<T> : Fragment(), GenericCallback<Any>, View.OnClickLis
         if (view?.id == R.id.rootLayoutAddToFav) {
             addToFavDialog = AddLocationToFavDialog(requireContext(),
                 object : AddLocationToFavDialog.addLocAsFavCallback {
-                    override fun addlocCallback(place: Place, locType: String) {
+                    override fun addlocCallback(place: Place?, locType: String?) {
                         if (place != null && locType != null) {
                             addLocInFav(locType, place)
                         }
