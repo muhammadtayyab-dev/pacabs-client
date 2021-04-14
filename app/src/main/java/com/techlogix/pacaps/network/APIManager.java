@@ -7,15 +7,23 @@ import com.techlogix.pacaps.activities.BaseActivity;
 import com.techlogix.pacaps.dialogs.PacapDialog;
 import com.techlogix.pacaps.enumirations.ErrorDescription;
 import com.techlogix.pacaps.models.GenericResponseModel;
+import com.techlogix.pacaps.models.NearestVehiclesModels.GetNearAvailableVehiclesRequestModel;
+import com.techlogix.pacaps.models.NearestVehiclesModels.GetNearestAvailbleVehiclesResponseModel;
 import com.techlogix.pacaps.models.ceateUserModel.CreateUserRequestModel;
 import com.techlogix.pacaps.models.ceateUserModel.CreateUserResponseModel;
 import com.techlogix.pacaps.models.ceateUserModel.VerifyUserOtp;
 import com.techlogix.pacaps.models.ceateUserModel.VerifyUserWithMobileAndPasswoadRequest;
+import com.techlogix.pacaps.models.cityModel.GetCityFromLatLongResponseModel;
+import com.techlogix.pacaps.models.drviersModels.GetAllDriversResponseModel;
 import com.techlogix.pacaps.models.favoritesModels.CreateFavLoctionsRequestModel;
 import com.techlogix.pacaps.models.favoritesModels.DeleteMyFavLocRequestModel;
 import com.techlogix.pacaps.models.favoritesModels.MyFavoritesResponseModel;
 import com.techlogix.pacaps.models.orderApiModels.GetOrderIdRequestModel;
 import com.techlogix.pacaps.models.orderApiModels.GetOrderIdResponseModel;
+import com.techlogix.pacaps.models.settingsModels.GetSettingsResponseModels;
+import com.techlogix.pacaps.models.tripsModels.TripEstimateRequestModel;
+import com.techlogix.pacaps.models.tripsModels.TripEstimationsResponseModel;
+import com.techlogix.pacaps.utility.Utility;
 
 import org.json.JSONException;
 
@@ -26,10 +34,11 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+
 public class APIManager {
     public static APIManager instance = new APIManager();
     public static Retrofit retrofit, orderRetrofit;
-
+    public static boolean showDialog=true;
     public GenericResponseModel getResponseModel() {
         return responseModel;
     }
@@ -95,18 +104,46 @@ public class APIManager {
         sendResultGeneric(result, callback, 2);
     }
 
+
+    public void getDefaultSettings(CallbackGenric callback) {
+        GetDataService service = retrofit.create(GetDataService.class);
+        Call<GenericResponseModel<ArrayList<GetSettingsResponseModels>>> result = service.getDefaultSettings();
+        sendResultGeneric(result, callback, Utility.Companion.getSETTINGS());
+    }
+
+
+    public void getTripPricForVehical(CallbackGenric callback, TripEstimateRequestModel requestModel) {
+        GetDataService service = retrofit.create(GetDataService.class);
+        Call<GenericResponseModel<TripEstimationsResponseModel>> result = service.getTripPricForVehical(requestModel);
+        sendResultGeneric(result, callback, Utility.Companion.getEST_PRICE_FOR_VEHICLE());
+    }
+
+
+    public void getCityByLatLong(CallbackGenric callback, double userLat,double userLong) {
+        GetDataService service = retrofit.create(GetDataService.class);
+        Call<GenericResponseModel<GetCityFromLatLongResponseModel>> result = service.getCityByLatLong(userLat,userLong);
+        sendResultGeneric(result, callback, Utility.Companion.getGET_CITIES());
+    }
+
+
+    public void getNearestAvailableVehicles(CallbackGenric callback, GetNearAvailableVehiclesRequestModel requestModel) {
+        GetDataService service = retrofit.create(GetDataService.class);
+        Call<GenericResponseModel<ArrayList<GetNearestAvailbleVehiclesResponseModel>>> result = service.getNearestAvailableVehicles(requestModel);
+        sendResultGeneric(result, callback, Utility.Companion.getGET_VEHICLES());
+    }
+
     private <T> void sendResultGeneric(Call<T> call, final CallbackGenric result, int rc) {
         PacapDialog dialog = null;
         if (Objects.requireNonNull(PACAP.Companion.getINSTANCE()).getBaseActivity() != null && !Objects.requireNonNull(PACAP.Companion.getINSTANCE().getBaseActivity()).isFinishing()) {
             dialog = new PacapDialog(PACAP.Companion.getINSTANCE().getBaseActivity());
         }
-        if (dialog != null)
+        if (dialog != null && showDialog)
             dialog.show();
         final Dialog finalDialog = dialog;
         call.enqueue(new retrofit2.Callback<T>() {
             @Override
             public void onResponse(Call<T> call, Response<T> response) {
-                if (finalDialog != null)
+                if (finalDialog != null && finalDialog.isShowing())
                     finalDialog.dismiss();
                 if (response.code() == 200 || response.code() == 201) {
                     GenericResponseModel<T> genericResponseModel = (GenericResponseModel<T>) response.body();
@@ -127,7 +164,7 @@ public class APIManager {
 
             @Override
             public void onFailure(Call<T> call, Throwable t) {
-                if (finalDialog != null)
+                if (finalDialog != null && finalDialog.isShowing())
                     finalDialog.dismiss();
                 ErrorDescription errorDescription = ErrorDescription.GENERAL_ERROR;
                 if (t instanceof java.net.UnknownHostException || t instanceof java.net.ConnectException) {
@@ -178,10 +215,6 @@ public class APIManager {
         });
     }
 
-
-    public interface Callback {
-        void onResult(boolean z, String response);
-    }
 
     public interface CallbackGenric<T> {
         void onResult(GenericResponseModel<T> response, int requestCode);

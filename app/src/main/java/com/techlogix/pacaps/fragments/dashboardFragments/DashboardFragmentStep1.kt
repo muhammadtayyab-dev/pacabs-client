@@ -4,10 +4,13 @@ import android.annotation.SuppressLint
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.navigation.fragment.findNavController
@@ -25,19 +28,33 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.techlogix.pacaps.R
+import com.techlogix.pacaps.activities.BaseActivity
+import com.techlogix.pacaps.models.GenericResponseModel
+import com.techlogix.pacaps.models.NearestVehiclesModels.GetNearAvailableVehiclesRequestModel
+import com.techlogix.pacaps.models.NearestVehiclesModels.GetNearestAvailbleVehiclesResponseModel
+import com.techlogix.pacaps.models.NearestVehiclesModels.VahiclesModel
+import com.techlogix.pacaps.models.cityModel.GetCityFromLatLongResponseModel
+import com.techlogix.pacaps.network.APIManager
 import com.techlogix.pacaps.utility.PermissionUtils
+import com.techlogix.pacaps.utility.SharePrefData
 import com.techlogix.pacaps.utility.Utility
 import kotlinx.android.synthetic.main.fragment_dashboard_step1.*
 import kotlinx.android.synthetic.main.fragment_dashboard_step1.taxiProviderSingleToggle
 import kotlinx.android.synthetic.main.fragment_dashboard_step2.*
+import java.util.concurrent.Executors
+import java.util.concurrent.ScheduledExecutorService
+import java.util.concurrent.TimeUnit
 
-class DashboardFragmentStep1 : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-    GoogleApiClient.OnConnectionFailedListener, LocationListener {
+class DashboardFragmentStep1<T> : Fragment(), OnMapReadyCallback,
+    GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+    LocationListener, APIManager.CallbackGenric<T> {
     var googleMap: GoogleMap? = null
     var mapFragment: SupportMapFragment? = null
     var googleAPIClient: GoogleApiClient? = null
     var mLocationRequest: LocationRequest? = null
     var mCurrentMarker: Marker? = null
+    var scheduler: ScheduledExecutorService? = null
+    var cityId: Int? = -1;
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -58,6 +75,7 @@ class DashboardFragmentStep1 : Fragment(), OnMapReadyCallback, GoogleApiClient.C
             mapFragment?.getMapAsync(this)
             taxiProviderSingleToggle.selectButton(R.id.taxiBtn)
             taxiProviderSingleToggle.setOnSelectListener {}
+            APIManager.getInstance().getDefaultSettings(this)
 
         } else {
             PermissionUtils.requestLocationPermissions(activity, 1111)
@@ -111,6 +129,24 @@ class DashboardFragmentStep1 : Fragment(), OnMapReadyCallback, GoogleApiClient.C
         googleAPIClient?.connect()
     }
 
+    private fun getUpdatedTaxi() {
+
+        if (cityId != -1) {
+            Log.d("exceOk","timer")
+            scheduler = Executors.newScheduledThreadPool(5)
+            scheduler?.scheduleAtFixedRate(Runnable {
+                val request = GetNearAvailableVehiclesRequestModel(cityId!!,
+                    Utility.currentUserLoc!!.latitude,
+                    Utility.currentUserLoc!!.longitude,
+                    1,
+                    SharePrefData.getInstance().userId)
+                APIManager.showDialog = false;
+                APIManager.getInstance().getNearestAvailableVehicles(this, request)
+            }, 5, 5, TimeUnit.SECONDS)
+
+        }
+    }
+
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<out String>,
                                             grantResults: IntArray) {
@@ -147,6 +183,8 @@ class DashboardFragmentStep1 : Fragment(), OnMapReadyCallback, GoogleApiClient.C
 
     override fun onLocationChanged(p0: Location) {
         try {
+            p0.latitude = 33.5651
+            p0.longitude = 73.0169
             Utility.currentUserLoc = LatLng(p0.latitude, p0.longitude)
             val markerOption = MarkerOptions()
             markerOption.position(LatLng(p0.latitude, p0.longitude))
@@ -157,6 +195,7 @@ class DashboardFragmentStep1 : Fragment(), OnMapReadyCallback, GoogleApiClient.C
             mCurrentMarker = googleMap?.addMarker(markerOption)
             googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(p0.latitude,
                 p0.longitude), 15.0f))
+            APIManager.getInstance().getCityByLatLong(this, p0.latitude, p0.longitude)
             if (googleAPIClient != null) {
                 LocationServices.FusedLocationApi.removeLocationUpdates(googleAPIClient, this)
             }
@@ -168,6 +207,47 @@ class DashboardFragmentStep1 : Fragment(), OnMapReadyCallback, GoogleApiClient.C
 
     override fun onResume() {
         super.onResume()
+
+    }
+
+    override fun onResult(response: GenericResponseModel<T>?, requestCode: Int) {
+        if (requestCode == Utility.SETTINGS) {
+
+        } else if (requestCode == Utility.GET_CITIES) {
+            val cityResponseModel = response?.result as GetCityFromLatLongResponseModel
+            cityId = cityResponseModel.cityid;
+            val request = GetNearAvailableVehiclesRequestModel(cityResponseModel.cityid,
+                Utility.currentUserLoc!!.latitude,
+                Utility.currentUserLoc!!.longitude,
+                1,
+                SharePrefData.getInstance().userId)
+            APIManager.showDialog = false;
+            APIManager.getInstance().getNearestAvailableVehicles(this, request)
+            getUpdatedTaxi()
+        } else if (requestCode == Utility.GET_VEHICLES) {
+            val responseModel =
+                response?.result as ArrayList<GetNearestAvailbleVehiclesResponseModel>
+            if (responseModel.size > 0) {
+                googleMap?.clear()
+                for (mainVehicleResponse: GetNearestAvailbleVehiclesResponseModel in responseModel) {
+                    for (model: VahiclesModel in mainVehicleResponse.vehicle) {
+                        val markerOption = MarkerOptions()
+                        markerOption.position(LatLng(model.latitude, model.longitude))
+                        markerOption.icon(Utility.bitmapDescriptorFromVector(requireContext(),
+                            R.drawable.ic_cab))
+                        markerOption.title(mainVehicleResponse.dist + " away")
+                        googleMap?.addMarker(markerOption)
+                    }
+                }
+            } else {
+                (requireActivity() as BaseActivity).showToast("Sorry,No Vehicles available right now")
+            }
+
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
     }
 
 

@@ -15,7 +15,7 @@ import com.techlogix.pacaps.utility.GenericCallback
 import com.techlogix.pacaps.utility.Utility
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
-class DashboardActivity : BaseActivity(), View.OnClickListener, GenericCallback<Any> {
+class DashboardActivity<T> : BaseActivity(), View.OnClickListener, GenericCallback<Any> {
     var drawerLayout: DrawerLayout? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +51,7 @@ class DashboardActivity : BaseActivity(), View.OnClickListener, GenericCallback<
             val fragment =
                 (supportFragmentManager.fragments[0] as NavHostFragment).childFragmentManager.fragments.get(
                     0)
-            if (fragment is DashboardFragmentStep1 || fragment is DashboardMapsFragment) {
+            if (fragment is DashboardFragmentStep1<*> || fragment is DashboardMapsFragment) {
                 fragment.onRequestPermissionsResult(requestCode, permissions, grantResults)
             }
 

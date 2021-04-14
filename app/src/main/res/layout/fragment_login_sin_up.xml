@@ -13,6 +13,8 @@
         android:layout_height="@dimen/_75sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_untitled_2"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

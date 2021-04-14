@@ -11,6 +11,8 @@
         android:id="@+id/logoImg"
         android:layout_width="@dimen/_150sdp"
         android:layout_height="@dimen/_75sdp"
+        android:src="@drawable/ic_untitled_2"
+        android:scaleType="centerCrop"
         android:layout_marginTop="@dimen/_20sdp"
         android:contentDescription="@string/app_name"
         app:layout_constraintEnd_toEndOf="parent"

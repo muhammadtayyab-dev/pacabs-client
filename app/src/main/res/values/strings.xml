@@ -32,7 +32,7 @@
     <string name="dashboadStep2">DashboardStep2Frag</string>
     <string name="list">List</string>
     <string name="map">Map</string>
-    <string name="places_key">AIzaSyAK5zL6ok3vWgiiMVzWX2vQMhbmRGFJ3ng</string>
+<!--    <string name="places_key">AIzaSyAK5zL6ok3vWgiiMVzWX2vQMhbmRGFJ3ng</string>-->
     <string name="map_key">AIzaSyBGSjK7aKKqIMHYXUvx3RBw1l23Zt8Oybk</string>
     <string name="hello">Hello</string>
     <string name="hours_or_services_may_difffer">Hours or services may difffer</string>

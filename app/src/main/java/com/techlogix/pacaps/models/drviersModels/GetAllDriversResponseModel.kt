@@ -1,4 +1,4 @@
-package com.techlogix.pacaps.models
+package com.techlogix.pacaps.models.drviersModels
 
 import com.google.gson.annotations.SerializedName
 
