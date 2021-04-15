@@ -2,17 +2,14 @@ package com.techlogix.pacaps.fragments.dashboardFragments
 
 import android.annotation.SuppressLint
 import android.location.Location
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -23,7 +20,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -39,8 +35,6 @@ import com.techlogix.pacaps.utility.PermissionUtils
 import com.techlogix.pacaps.utility.SharePrefData
 import com.techlogix.pacaps.utility.Utility
 import kotlinx.android.synthetic.main.fragment_dashboard_step1.*
-import kotlinx.android.synthetic.main.fragment_dashboard_step1.taxiProviderSingleToggle
-import kotlinx.android.synthetic.main.fragment_dashboard_step2.*
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
@@ -131,19 +125,25 @@ class DashboardFragmentStep1<T> : Fragment(), OnMapReadyCallback,
 
     private fun getUpdatedTaxi() {
 
-        if (cityId != -1) {
-            Log.d("exceOk","timer")
-            scheduler = Executors.newScheduledThreadPool(5)
-            scheduler?.scheduleAtFixedRate(Runnable {
-                val request = GetNearAvailableVehiclesRequestModel(cityId!!,
-                    Utility.currentUserLoc!!.latitude,
-                    Utility.currentUserLoc!!.longitude,
-                    1,
-                    SharePrefData.getInstance().userId)
-                APIManager.showDialog = false;
-                APIManager.getInstance().getNearestAvailableVehicles(this, request)
+
+            scheduler = Executors.newSingleThreadScheduledExecutor()
+            scheduler!!.scheduleAtFixedRate({
+                getTexi()
             }, 5, 5, TimeUnit.SECONDS)
 
+
+    }
+
+    private fun getTexi() {
+        if(cityId!=-1){
+            println("working")
+            val request = GetNearAvailableVehiclesRequestModel(cityId!!,
+                Utility.currentUserLoc!!.latitude,
+                Utility.currentUserLoc!!.longitude,
+                1,
+                SharePrefData.getInstance().userId)
+            APIManager.showDialog = false;
+            APIManager.getInstance().getNearestAvailableVehicles(this, request)
         }
     }
 
