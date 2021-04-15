@@ -11,12 +11,14 @@ import com.techlogix.pacaps.adapters.ActivityRecyclerAdapterGeneric
 import com.techlogix.pacaps.fragments.dashboardFragments.DashboardFragmentStep1
 import com.techlogix.pacaps.fragments.dashboardFragments.DashboardMapsFragment
 import com.techlogix.pacaps.models.NavMenuModel
+import com.techlogix.pacaps.models.NearestVehiclesModels.GetNearestAvailbleVehiclesResponseModel
 import com.techlogix.pacaps.utility.GenericCallback
 import com.techlogix.pacaps.utility.Utility
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity<T> : BaseActivity(), View.OnClickListener, GenericCallback<Any> {
     var drawerLayout: DrawerLayout? = null
+    var taxiDriverList:ArrayList<GetNearestAvailbleVehiclesResponseModel>?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)

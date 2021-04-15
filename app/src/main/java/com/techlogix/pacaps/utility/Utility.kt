@@ -3,6 +3,8 @@ package com.techlogix.pacaps.utility
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.location.Address
+import android.location.Geocoder
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.model.BitmapDescriptor
@@ -10,6 +12,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.SphericalUtil
+import java.util.*
 import java.util.regex.Pattern
 
 
@@ -65,6 +68,12 @@ class Utility {
                 SphericalUtil.computeOffset(currentUserLoc, distanceFromCenterToCorner, 45.0)
 
             return LatLngBounds(southwestCorner,northeastCorner)
+        }
+
+        fun getAddress(context: Context,lat:Double,long:Double):List<Address>{
+            val geocoder=Geocoder(context, Locale.getDefault())
+            return geocoder.getFromLocation(lat,long,1)
+
         }
     }
 }

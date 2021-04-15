@@ -22,6 +22,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.techlogix.pacaps.R
+import com.techlogix.pacaps.activities.DashboardActivity
+import com.techlogix.pacaps.models.NearestVehiclesModels.GetNearestAvailbleVehiclesResponseModel
+import com.techlogix.pacaps.models.NearestVehiclesModels.VahiclesModel
 import com.techlogix.pacaps.utility.PermissionUtils
 import com.techlogix.pacaps.utility.Utility
 import java.lang.Exception
@@ -144,6 +147,18 @@ class DashboardMapsFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.Co
                 mCurrentMarker = googleMap?.addMarker(markerOption)
                 googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(p0.latitude,
                     p0.longitude), 15.0f))
+
+                for (mainVehicleResponse: GetNearestAvailbleVehiclesResponseModel in ((requireActivity() as DashboardActivity<*>).taxiDriverList!!)) {
+                    for (model: VahiclesModel in mainVehicleResponse.vehicle) {
+                        val markerOption = MarkerOptions()
+                        markerOption.position(LatLng(model.latitude, model.longitude))
+                        markerOption.icon(Utility.bitmapDescriptorFromVector(requireContext(),
+                            R.drawable.ic_cab))
+                        markerOption.title(mainVehicleResponse.dist + " away")
+                        googleMap?.addMarker(markerOption)
+                    }
+                }
+
                 if (googleAPIClient != null) {
                     LocationServices.FusedLocationApi.removeLocationUpdates(googleAPIClient, this)
                 }

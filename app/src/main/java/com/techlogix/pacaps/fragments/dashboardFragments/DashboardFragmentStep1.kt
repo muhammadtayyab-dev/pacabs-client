@@ -3,6 +3,7 @@ package com.techlogix.pacaps.fragments.dashboardFragments
 import android.annotation.SuppressLint
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.techlogix.pacaps.R
 import com.techlogix.pacaps.activities.BaseActivity
+import com.techlogix.pacaps.activities.DashboardActivity
 import com.techlogix.pacaps.models.GenericResponseModel
 import com.techlogix.pacaps.models.NearestVehiclesModels.GetNearAvailableVehiclesRequestModel
 import com.techlogix.pacaps.models.NearestVehiclesModels.GetNearestAvailbleVehiclesResponseModel
@@ -126,16 +128,16 @@ class DashboardFragmentStep1<T> : Fragment(), OnMapReadyCallback,
     private fun getUpdatedTaxi() {
 
 
-            scheduler = Executors.newSingleThreadScheduledExecutor()
-            scheduler!!.scheduleAtFixedRate({
-                getTexi()
-            }, 5, 5, TimeUnit.SECONDS)
+        scheduler = Executors.newSingleThreadScheduledExecutor()
+        scheduler!!.scheduleAtFixedRate({
+            getTexi()
+        }, 5, 5, TimeUnit.SECONDS)
 
 
     }
 
     private fun getTexi() {
-        if(cityId!=-1){
+        if (cityId != -1) {
             println("working")
             val request = GetNearAvailableVehiclesRequestModel(cityId!!,
                 Utility.currentUserLoc!!.latitude,
@@ -183,8 +185,8 @@ class DashboardFragmentStep1<T> : Fragment(), OnMapReadyCallback,
 
     override fun onLocationChanged(p0: Location) {
         try {
-            p0.latitude = 33.5651
-            p0.longitude = 73.0169
+//            p0.latitude = 33.5651
+//            p0.longitude = 73.0169
             Utility.currentUserLoc = LatLng(p0.latitude, p0.longitude)
             val markerOption = MarkerOptions()
             markerOption.position(LatLng(p0.latitude, p0.longitude))
@@ -223,10 +225,11 @@ class DashboardFragmentStep1<T> : Fragment(), OnMapReadyCallback,
                 SharePrefData.getInstance().userId)
             APIManager.showDialog = false;
             APIManager.getInstance().getNearestAvailableVehicles(this, request)
-            getUpdatedTaxi()
+//            getUpdatedTaxi()
         } else if (requestCode == Utility.GET_VEHICLES) {
             val responseModel =
                 response?.result as ArrayList<GetNearestAvailbleVehiclesResponseModel>
+            (requireActivity() as DashboardActivity<*>).taxiDriverList=responseModel
             if (responseModel.size > 0) {
                 googleMap?.clear()
                 for (mainVehicleResponse: GetNearestAvailbleVehiclesResponseModel in responseModel) {
@@ -242,13 +245,19 @@ class DashboardFragmentStep1<T> : Fragment(), OnMapReadyCallback,
             } else {
                 (requireActivity() as BaseActivity).showToast("Sorry,No Vehicles available right now")
             }
+            Handler().postDelayed(runnable, 5000)
+
 
         }
     }
 
     override fun onPause() {
         super.onPause()
+        Handler().removeCallbacks(runnable)
     }
 
+    val runnable = Runnable {
+        getTexi()
+    }
 
 }

@@ -11,10 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.techlogix.pacaps.R
 import com.techlogix.pacaps.activities.ServcieProviderAndCapActivity
 import com.techlogix.pacaps.customViews.CircleImageView
+import com.techlogix.pacaps.models.NearestVehiclesModels.GetNearestAvailbleVehiclesResponseModel
 import com.techlogix.pacaps.models.cabAndDriverInformationModels.DriverDetailModel
 import com.techlogix.pacaps.utility.Utility
 
-class DriverDetailsRecyclerAdapter(var driverList: ArrayList<DriverDetailModel>) :
+class DriverDetailsRecyclerAdapter(var driverList: ArrayList<GetNearestAvailbleVehiclesResponseModel>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
@@ -44,11 +45,17 @@ class DriverDetailsRecyclerAdapter(var driverList: ArrayList<DriverDetailModel>)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MyServicesProviderHolders) {
-            holder.userNameTv.text = driverList.get(holder.adapterPosition).name
-            holder.distanceTv.text = driverList.get(holder.adapterPosition).distance
+            holder.userNameTv.text = driverList.get(holder.adapterPosition).vehicle.get(0).drivername
+            holder.distanceTv.text = " - "+driverList.get(holder.adapterPosition).dist
             holder.rateTv.text = driverList.get(holder.adapterPosition).rating.toString()
-            holder.rateBar.rating = driverList.get(holder.adapterPosition).rating.toFloat()
-            holder.serviceTypeTv.text = driverList.get(holder.adapterPosition).location
+            holder.rateBar.rating = driverList.get(holder.adapterPosition).rating
+            holder.serviceTypeTv.text ="Taxi-Service-"+
+                    Utility.getAddress(holder.serviceTypeTv.context,driverList.get(holder.adapterPosition)
+                        .vehicle.get(0).latitude,driverList.get(holder.adapterPosition)
+                        .vehicle.get(0).longitude).get(0).subLocality+"-"+
+                    Utility.getAddress(holder.serviceTypeTv.context,driverList.get(holder.adapterPosition)
+                        .vehicle.get(0).latitude,driverList.get(holder.adapterPosition)
+                        .vehicle.get(0).longitude).get(0).locality
             holder.idnavigateImg.setOnClickListener {
                 holder.idnavigateImg.context.startActivity(Intent(holder.idnavigateImg.context,
                     ServcieProviderAndCapActivity::class.java))
@@ -67,7 +74,7 @@ class DriverDetailsRecyclerAdapter(var driverList: ArrayList<DriverDetailModel>)
         var userNameTv = itemView.findViewById(R.id.userNameTv) as TextView
         var rateTv = itemView.findViewById(R.id.rateTv) as TextView
         var distanceTv = itemView.findViewById(R.id.distanceTv) as TextView
-        var serviceTypeTv = itemView.findViewById(R.id.userNameTv) as TextView
+        var serviceTypeTv = itemView.findViewById(R.id.serviceTypeTv) as TextView
         var rateBar = itemView.findViewById(R.id.rateBar) as RatingBar
         var idnavigateImg = itemView.findViewById(R.id.idnavigateImg) as ImageView
     }
