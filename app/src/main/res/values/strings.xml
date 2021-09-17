@@ -105,5 +105,6 @@
     <string name="enter_loction_type_i_e_home_office_etc">Enter Loction Type i.e Home, Office, etc</string>
     <string name="search_loction">Search Loction</string>
     <string name="add_to_favorites">Add To Favorites</string>
+    <string name="places_key_tayyab">AIzaSyBAmiMpUaExFrZtoDvUvHKLxizWqKud4hA</string>
 
 </resources>
