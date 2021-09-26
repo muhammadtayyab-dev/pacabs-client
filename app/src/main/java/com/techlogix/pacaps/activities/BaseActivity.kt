@@ -52,6 +52,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun showErrorDialog(title: String, msg: String, response: GenericResponseModel<*>?) {
 
+        if (!msg.contains("city", true))
         ErrorSuccessDialog(this, title, msg, object : AlertDialogCallback {
             override fun onDissmiss() {
                 onDismiss(response)

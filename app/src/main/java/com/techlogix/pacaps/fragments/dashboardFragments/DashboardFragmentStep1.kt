@@ -50,7 +50,7 @@ class DashboardFragmentStep1<T> : Fragment(), OnMapReadyCallback,
     var mLocationRequest: LocationRequest? = null
     var mCurrentMarker: Marker? = null
     var scheduler: ScheduledExecutorService? = null
-    var cityId: Int? = -1;
+
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -137,9 +137,9 @@ class DashboardFragmentStep1<T> : Fragment(), OnMapReadyCallback,
     }
 
     private fun getTexi() {
-        if (cityId != -1) {
+        if ((requireActivity() as DashboardActivity<*>).cityId != -1) {
             println("working")
-            val request = GetNearAvailableVehiclesRequestModel(cityId!!,
+            val request = GetNearAvailableVehiclesRequestModel((requireActivity() as DashboardActivity<*>).cityId!!,
                 Utility.currentUserLoc!!.latitude,
                 Utility.currentUserLoc!!.longitude,
                 1,
@@ -176,11 +176,11 @@ class DashboardFragmentStep1<T> : Fragment(), OnMapReadyCallback,
     }
 
     override fun onConnectionSuspended(p0: Int) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onConnectionFailed(p0: ConnectionResult) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onLocationChanged(p0: Location) {
@@ -217,7 +217,7 @@ class DashboardFragmentStep1<T> : Fragment(), OnMapReadyCallback,
 
         } else if (requestCode == Utility.GET_CITIES) {
             val cityResponseModel = response?.result as GetCityFromLatLongResponseModel
-            cityId = cityResponseModel.cityid;
+            (requireActivity() as DashboardActivity<*>).cityId  = cityResponseModel.cityid;
             val request = GetNearAvailableVehiclesRequestModel(cityResponseModel.cityid,
                 Utility.currentUserLoc!!.latitude,
                 Utility.currentUserLoc!!.longitude,
@@ -232,9 +232,16 @@ class DashboardFragmentStep1<T> : Fragment(), OnMapReadyCallback,
             (requireActivity() as DashboardActivity<*>).taxiDriverList=responseModel
             if (responseModel.size > 0) {
                 googleMap?.clear()
+
+                var markerOption = MarkerOptions()
+                markerOption.position(LatLng(Utility.currentUserLoc!!.latitude,Utility.currentUserLoc!!.longitude))
+                markerOption.icon(Utility.bitmapDescriptorFromVector(requireContext(),
+                    R.drawable.ic_pin))
+                markerOption.title("You")
+                googleMap?.addMarker(markerOption)
                 for (mainVehicleResponse: GetNearestAvailbleVehiclesResponseModel in responseModel) {
                     for (model: VahiclesModel in mainVehicleResponse.vehicle) {
-                        val markerOption = MarkerOptions()
+                        markerOption = MarkerOptions()
                         markerOption.position(LatLng(model.latitude, model.longitude))
                         markerOption.icon(Utility.bitmapDescriptorFromVector(requireContext(),
                             R.drawable.ic_cab))
@@ -246,7 +253,6 @@ class DashboardFragmentStep1<T> : Fragment(), OnMapReadyCallback,
                 (requireActivity() as BaseActivity).showToast("Sorry,No Vehicles available right now")
             }
             Handler().postDelayed(runnable, 5000)
-
 
         }
     }

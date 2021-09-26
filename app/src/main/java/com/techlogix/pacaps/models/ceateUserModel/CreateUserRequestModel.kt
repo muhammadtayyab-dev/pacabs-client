@@ -7,4 +7,5 @@ data class CreateUserRequestModel(@SerializedName("name") val name: String,
                                   @SerializedName("email") val email: String,
                                   @SerializedName("password") val password: String,
                                   @SerializedName("tokenid") val tokenid: String,
+                                  @SerializedName("usertype") val typeid : Int,
                                   @SerializedName("referredbycode") val referredbycode: String)

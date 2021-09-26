@@ -1,6 +1,8 @@
 package com.techlogix.pacaps.fragments.registrationFlow
 
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,10 @@ import com.techlogix.pacaps.models.ceateUserModel.VerifyUserWithMobileAndPasswoa
 import com.techlogix.pacaps.network.APIManager
 import com.techlogix.pacaps.utility.SharePrefData
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_login.keyImg
+import kotlinx.android.synthetic.main.fragment_login.numberEd
+import kotlinx.android.synthetic.main.fragment_login.passwordEd
+import kotlinx.android.synthetic.main.fragment_signup.*
 
 class LoginFragment<T> : Fragment(), APIManager.CallbackGenric<T> {
 
@@ -39,6 +45,14 @@ class LoginFragment<T> : Fragment(), APIManager.CallbackGenric<T> {
                         passwordEd.text.toString()), this)
             }
         }
+        keyImg.setOnClickListener {
+            if (passwordEd.transformationMethod.equals(PasswordTransformationMethod.getInstance())) {
+                passwordEd.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            }else{
+                passwordEd.transformationMethod= PasswordTransformationMethod.getInstance()
+            }
+            passwordEd.setSelection(passwordEd.text.toString().length)
+        }
     }
 
     private fun validateFeilds(): Boolean {
@@ -63,6 +77,7 @@ class LoginFragment<T> : Fragment(), APIManager.CallbackGenric<T> {
             SharePrefData.getInstance().userNum =
                 (response.result as CreateUserResponseModel).mobile
             SharePrefData.getInstance().userName = (response.result as CreateUserResponseModel).name
+            SharePrefData.getInstance().isLoggedIn=true
             baseActivity?.openActivity(DashboardActivity::class.java, null)
             requireActivity().finish()
         }

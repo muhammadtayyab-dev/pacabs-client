@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_dashboard.*
 class DashboardActivity<T> : BaseActivity(), View.OnClickListener, GenericCallback<Any> {
     var drawerLayout: DrawerLayout? = null
     var taxiDriverList:ArrayList<GetNearestAvailbleVehiclesResponseModel>?=null
+    var cityId: Int? = -1;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)

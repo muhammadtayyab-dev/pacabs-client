@@ -31,6 +31,17 @@ public class SharePrefData {
     private SharePrefData() {
     }
 
+    public void setLoggedIn(boolean loggedIn) {
+        spEditor = sp.edit();
+        spEditor.putBoolean(LOGGED_IN, loggedIn);
+        spEditor.apply();
+        spEditor.commit();
+    }
+
+    public boolean isLoggedIn() {
+        return sp.getBoolean(LOGGED_IN, false);
+    }
+
     public void setUserId(int userId) {
         spEditor = sp.edit();
         spEditor.putInt(CUSTOMER_ID, userId);

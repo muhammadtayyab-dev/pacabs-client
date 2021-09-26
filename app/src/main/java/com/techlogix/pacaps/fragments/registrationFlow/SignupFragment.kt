@@ -4,6 +4,8 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.text.Spanned
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,11 +43,19 @@ class SignupFragment<T> : Fragment(), APIManager.CallbackGenric<T> {
                         numberEd.text.toString(),
                         emailEd.text.toString(),
                         passwordEd.text.toString(),
-                        "12323",
+                        "12323",2,
                         ""), this)
             }
 
 
+        }
+        keyImg.setOnClickListener {
+            if (passwordEd.transformationMethod.equals(PasswordTransformationMethod.getInstance())) {
+                passwordEd.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            }else{
+                passwordEd.transformationMethod= PasswordTransformationMethod.getInstance()
+            }
+            passwordEd.setSelection(passwordEd.text.toString().length)
         }
     }
 

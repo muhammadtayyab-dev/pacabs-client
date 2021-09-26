@@ -38,15 +38,17 @@ class DashboardListFragmnet : Fragment() {
         headerModel.type = Utility.HEADER_TYPE
         list?.add(0, headerModel)
 
-        for (model: GetNearestAvailbleVehiclesResponseModel in (baseActivity as DashboardActivity<*>).taxiDriverList!!) {
-            for (vehicleModel: VahiclesModel in model.vehicle) {
-                if (vehicleModel.cityid != 0 && vehicleModel.id != 0) {
-                    val item = GetNearestAvailbleVehiclesResponseModel(model.vehiclecategoryid,
-                        model.duration,
-                        model.dist,
-                        model.vehicle)
-                    item.type = Utility.SERVICE_PROVIDER_TYPE
-                    list.add(item)
+        if((baseActivity as DashboardActivity<*>).taxiDriverList!=null) {
+            for (model: GetNearestAvailbleVehiclesResponseModel in (baseActivity as DashboardActivity<*>).taxiDriverList!!) {
+                for (vehicleModel: VahiclesModel in model.vehicle) {
+                    if (vehicleModel.cityid != 0 && vehicleModel.id != 0) {
+                        val item = GetNearestAvailbleVehiclesResponseModel(model.vehiclecategoryid,
+                            model.duration,
+                            model.dist,
+                            model.vehicle)
+                        item.type = Utility.SERVICE_PROVIDER_TYPE
+                        list.add(item)
+                    }
                 }
             }
         }
