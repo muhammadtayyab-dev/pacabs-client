@@ -2,9 +2,12 @@ package com.techlogix.pacaps.network;
 
 
 import com.google.android.gms.location.Geofence;
+import com.techlogix.hirecabs.models.bookingsModels.TempBookingRequestModel;
+import com.techlogix.hirecabs.models.bookingsModels.TempBookingResponseModel;
 import com.techlogix.pacaps.models.GenericResponseModel;
 import com.techlogix.pacaps.models.NearestVehiclesModels.GetNearAvailableVehiclesRequestModel;
 import com.techlogix.pacaps.models.NearestVehiclesModels.GetNearestAvailbleVehiclesResponseModel;
+import com.techlogix.pacaps.models.cabAndDriverInformationModels.CabsAndTheirFareResponseModel;
 import com.techlogix.pacaps.models.ceateUserModel.CreateUserRequestModel;
 import com.techlogix.pacaps.models.ceateUserModel.CreateUserResponseModel;
 import com.techlogix.pacaps.models.ceateUserModel.VerifyUserOtp;
@@ -68,4 +71,12 @@ public interface GetDataService {
     //to get 4 kms range vehicles availble on the map. with all vehicle types.
     @POST("trip/nearestVehicleEstimate")
     Call<GenericResponseModel<ArrayList<GetNearestAvailbleVehiclesResponseModel>>> getNearestAvailableVehicles(@Body GetNearAvailableVehiclesRequestModel requestModel);
+
+    @GET("faremaster/getCabs/{cityname}/{triptype}")
+    Call<GenericResponseModel<ArrayList<CabsAndTheirFareResponseModel>>> getCabsAndTheirFare(@Path(value = "cityname") String cityName, @Path(value = "triptype") String triptype);
+
+    @POST("booking/temp")
+    Call<GenericResponseModel<TempBookingResponseModel>> tempBooking(@Body TempBookingRequestModel requestModel);
+
+
 }

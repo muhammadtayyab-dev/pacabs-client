@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.SphericalUtil
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 
@@ -26,10 +27,16 @@ class Utility {
         val PROVIDER_CAB_TIME_IN_KM_RECYCLER_TYPE: Int = 1
         val PROVIDER_CAB_CAR_TYPE_RECYCLER_TYPE: Int = 2
         val NAV_ITEMS: Int = 3
+        val TEMPBOOKING = 82
+        val START_PLACES_CODE: Int = 1213
+        val DESTINATION_PLACES_CODE: Int = 1214
+        val SHOW_AVAILABLE_CAB = 53
         val MY_RIDES: Int = 4
         var currentUserLoc: LatLng? = null;
         val RAZORPAY: Int = 9977
         val OFFERS_DISCOUNT: Int = 5
+        val timeDateFormat = "yyyy-MM-dd HH:mm:ss"
+
         val MY_FAVORITES: Int = 6
         val GET_CITIES: Int = 612
         val GET_VEHICLES: Int = 121
@@ -74,6 +81,11 @@ class Utility {
             val geocoder=Geocoder(context, Locale.getDefault())
             return geocoder.getFromLocation(lat,long,1)
 
+        }
+        fun getCurrentDateTime(): String {
+            val date = Calendar.getInstance().time;
+            val simpleDateFormate = SimpleDateFormat(timeDateFormat, Locale.getDefault())
+            return simpleDateFormate.format(date)
         }
     }
 }

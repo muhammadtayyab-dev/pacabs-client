@@ -3,12 +3,14 @@ package com.techlogix.pacaps
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import com.google.android.libraries.places.api.Places
 import com.techlogix.pacaps.activities.BaseActivity
 import com.techlogix.pacaps.utility.SharePrefData
 
 class PACAP : Application() {
 
     private var baseActivity: Activity? = null
+    var cityId = -1
 
     companion object {
         var INSTANCE: PACAP? = null
@@ -20,6 +22,7 @@ class PACAP : Application() {
         INSTANCE = this
         context = this
         SharePrefData.getInstance().setContext(this)
+
 
     }
 

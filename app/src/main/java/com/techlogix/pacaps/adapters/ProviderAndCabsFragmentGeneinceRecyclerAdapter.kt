@@ -10,11 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.techlogix.pacaps.R
 import com.techlogix.pacaps.models.cabAndDriverInformationModels.CabDetailsInformationModel
 import com.techlogix.pacaps.models.TimeInKmModel
+import com.techlogix.pacaps.models.cabAndDriverInformationModels.CabsAndTheirFareResponseModel
+import com.techlogix.pacaps.utility.GenericCallBackWithType
 import com.techlogix.pacaps.utility.Utility
 
 class ProviderAndCabsFragmentGeneinceRecyclerAdapter<T>(var genericArray: ArrayList<T>,
-                                                        var type: Int) :
+                                                        var type: Int,
+                                                        var callBackWithType: GenericCallBackWithType<T>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var selectedItem: Any? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (type == Utility.PROVIDER_CAB_TIME_IN_KM_RECYCLER_TYPE) {
@@ -52,9 +56,10 @@ class ProviderAndCabsFragmentGeneinceRecyclerAdapter<T>(var genericArray: ArrayL
             holder.kmTv.text = Gobject.km
             holder.rootLayout.setOnClickListener {
                 setSelection(Gobject.time)
+                callBackWithType.returnCallback(Gobject, 1)
             }
-        } else if (Gobject is CabDetailsInformationModel && holder is MyCabsHolderView) {
-            when (Gobject.isSelected) {
+        } else if (Gobject is CabsAndTheirFareResponseModel && holder is MyCabsHolderView) {
+          /*  when (Gobject.isSelected) {
                 true -> holder.rootLayout.setBackgroundResource(R.drawable.taxi_seleced_bg)
                 false -> holder.rootLayout.background = null
             }
@@ -64,6 +69,23 @@ class ProviderAndCabsFragmentGeneinceRecyclerAdapter<T>(var genericArray: ArrayL
             holder.cabFaretv.text = Gobject.cabFare
             holder.rootLayout.setOnClickListener {
                 setSelection(Gobject.cabType)
+                callBackWithType.returnCallback(Gobject, 1)
+            }*/
+
+            when (Gobject.isSelected) {
+                true -> holder.rootLayout.setBackgroundResource(R.drawable.taxi_seleced_bg)
+                false -> holder.rootLayout.background = null
+            }
+
+            holder.cabArrivalTimeTv.text = Gobject.basekm.toString() + "KM"
+            holder.cabTypeTv.text = Gobject.vehiclecategory.category
+            holder.cabDescTv.text = Gobject.triptype
+            holder.cabFaretv.text = "₹" + Gobject.basefare
+            holder.rootLayout.setOnClickListener {
+                selectedItem=Gobject
+                setSelection(Gobject.vehiclecategory.category)
+                callBackWithType.returnCallback(Gobject, 1)
+
             }
         }
     }
@@ -90,8 +112,14 @@ class ProviderAndCabsFragmentGeneinceRecyclerAdapter<T>(var genericArray: ArrayL
                 item.isSelected = item.time.equals(itemToBeSelected)
             } else if (item is CabDetailsInformationModel) {
                 item.isSelected = item.cabType.equals(itemToBeSelected)
+            } else if (item is CabsAndTheirFareResponseModel) {
+                item.isSelected = item.vehiclecategory.category.equals(itemToBeSelected)
             }
         }
         notifyDataSetChanged()
+    }
+
+    fun getSelectedItem(): Any {
+        return selectedItem!!
     }
 }

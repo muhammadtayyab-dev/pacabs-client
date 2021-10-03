@@ -169,7 +169,8 @@
         <RelativeLayout
             android:id="@+id/yourAddressTv"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -189,6 +190,7 @@
                 android:layout_height="match_parent"
                 android:layout_toEndOf="@+id/keyboardImg"
                 android:ellipsize="end"
+                android:maxLines="2"
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/_15sdp"
                 android:text="SiriNagar, Simlaa" />
@@ -198,7 +200,7 @@
         <RelativeLayout
             android:id="@+id/yourLocationTv"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_height="@dimen/_40sdp"
             app:layout_constraintEnd_toStartOf="@+id/nowCardView"
             app:layout_constraintStart_toStartOf="parent"
 
@@ -219,6 +221,7 @@
                 android:layout_height="match_parent"
                 android:layout_toEndOf="@+id/locImg"
                 android:ellipsize="end"
+                android:maxLines="2"
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/_15sdp"
                 android:text="SiriNagar, Simlaa" />

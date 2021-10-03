@@ -44,7 +44,6 @@ class AddLocationToFavDialog(context: Context, callback: addLocAsFavCallback) : 
 
     override fun onClick(view: View?) {
         if (view?.id == R.id.searchLocTv) {
-            PACAP.context?.let { Places.initialize(it, context.getString(R.string.places_key_tayyab)) }
             val fields =
                 listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
             val latLongBoud = RectangularBounds.newInstance(Utility.getBounds())

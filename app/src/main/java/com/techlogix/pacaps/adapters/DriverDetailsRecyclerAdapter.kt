@@ -45,20 +45,22 @@ class DriverDetailsRecyclerAdapter(var driverList: ArrayList<GetNearestAvailbleV
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MyServicesProviderHolders) {
-            holder.userNameTv.text = driverList.get(holder.adapterPosition).vehicle.get(0).drivername
-            holder.distanceTv.text = " - "+driverList.get(holder.adapterPosition).dist
+            holder.userNameTv.text =
+                driverList.get(holder.adapterPosition).vehicle.get(0).drivername
+            holder.distanceTv.text = " - " + driverList.get(holder.adapterPosition).dist
             holder.rateTv.text = driverList.get(holder.adapterPosition).rating.toString()
             holder.rateBar.rating = driverList.get(holder.adapterPosition).rating
-            holder.serviceTypeTv.text ="Taxi-Service-"+
-                    Utility.getAddress(holder.serviceTypeTv.context,driverList.get(holder.adapterPosition)
-                        .vehicle.get(0).latitude,driverList.get(holder.adapterPosition)
-                        .vehicle.get(0).longitude).get(0).subLocality+"-"+
-                    Utility.getAddress(holder.serviceTypeTv.context,driverList.get(holder.adapterPosition)
-                        .vehicle.get(0).latitude,driverList.get(holder.adapterPosition)
-                        .vehicle.get(0).longitude).get(0).locality
+            holder.serviceTypeTv.text =
+                "Taxi-Service-" + Utility.getAddress(holder.serviceTypeTv.context,
+                    driverList.get(holder.adapterPosition).vehicle.get(0).latitude,
+                    driverList.get(holder.adapterPosition).vehicle.get(0).longitude)
+                    .get(0).subLocality + "-" + Utility.getAddress(holder.serviceTypeTv.context,
+                    driverList.get(holder.adapterPosition).vehicle.get(0).latitude,
+                    driverList.get(holder.adapterPosition).vehicle.get(0).longitude).get(0).locality
             holder.idnavigateImg.setOnClickListener {
                 holder.idnavigateImg.context.startActivity(Intent(holder.idnavigateImg.context,
-                    ServcieProviderAndCapActivity::class.java))
+                    ServcieProviderAndCapActivity::class.java).putExtra("driverInfo",
+                    driverList.get(holder.adapterPosition)))
             }
         } else if (holder is MyDriversHolder) {
 

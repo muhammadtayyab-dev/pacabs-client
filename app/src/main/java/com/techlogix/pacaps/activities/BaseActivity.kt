@@ -7,7 +7,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.libraries.places.api.Places
 import com.techlogix.pacaps.PACAP
+import com.techlogix.pacaps.R
 import com.techlogix.pacaps.dialogs.AlertDialogCallback
 import com.techlogix.pacaps.dialogs.ErrorSuccessDialog
 import com.techlogix.pacaps.models.GenericResponseModel
@@ -19,6 +21,8 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         pacap = application as PACAP?;
         pacap?.setActivity(this)
+        PACAP.context?.let { Places.initialize(it, this.getString(R.string.places_key_tayyab)) }
+
     }
 
 
@@ -52,12 +56,14 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun showErrorDialog(title: String, msg: String, response: GenericResponseModel<*>?) {
 
-        if (!msg.contains("city", true))
-        ErrorSuccessDialog(this, title, msg, object : AlertDialogCallback {
-            override fun onDissmiss() {
-                onDismiss(response)
-            }
-        }).show()
+        if (!msg.contains("city", true)) ErrorSuccessDialog(this,
+            title,
+            msg,
+            object : AlertDialogCallback {
+                override fun onDissmiss() {
+                    onDismiss(response)
+                }
+            }).show()
     }
 
 }

@@ -139,11 +139,12 @@ class DashboardFragmentStep1<T> : Fragment(), OnMapReadyCallback,
     private fun getTexi() {
         if ((requireActivity() as DashboardActivity<*>).cityId != -1) {
             println("working")
-            val request = GetNearAvailableVehiclesRequestModel((requireActivity() as DashboardActivity<*>).cityId!!,
-                Utility.currentUserLoc!!.latitude,
-                Utility.currentUserLoc!!.longitude,
-                1,
-                SharePrefData.getInstance().userId)
+            val request =
+                GetNearAvailableVehiclesRequestModel((requireActivity() as DashboardActivity<*>).cityId!!,
+                    Utility.currentUserLoc!!.latitude,
+                    Utility.currentUserLoc!!.longitude,
+                    1,
+                    SharePrefData.getInstance().userId)
             APIManager.showDialog = false;
             APIManager.getInstance().getNearestAvailableVehicles(this, request)
         }
@@ -217,7 +218,8 @@ class DashboardFragmentStep1<T> : Fragment(), OnMapReadyCallback,
 
         } else if (requestCode == Utility.GET_CITIES) {
             val cityResponseModel = response?.result as GetCityFromLatLongResponseModel
-            (requireActivity() as DashboardActivity<*>).cityId  = cityResponseModel.cityid;
+            (requireActivity() as DashboardActivity<*>).cityId = cityResponseModel.cityid;
+            (requireActivity() as BaseActivity).pacap?.cityId = cityResponseModel.cityid
             val request = GetNearAvailableVehiclesRequestModel(cityResponseModel.cityid,
                 Utility.currentUserLoc!!.latitude,
                 Utility.currentUserLoc!!.longitude,
@@ -229,12 +231,13 @@ class DashboardFragmentStep1<T> : Fragment(), OnMapReadyCallback,
         } else if (requestCode == Utility.GET_VEHICLES) {
             val responseModel =
                 response?.result as ArrayList<GetNearestAvailbleVehiclesResponseModel>
-            (requireActivity() as DashboardActivity<*>).taxiDriverList=responseModel
+            (requireActivity() as DashboardActivity<*>).taxiDriverList = responseModel
             if (responseModel.size > 0) {
                 googleMap?.clear()
 
                 var markerOption = MarkerOptions()
-                markerOption.position(LatLng(Utility.currentUserLoc!!.latitude,Utility.currentUserLoc!!.longitude))
+                markerOption.position(LatLng(Utility.currentUserLoc!!.latitude,
+                    Utility.currentUserLoc!!.longitude))
                 markerOption.icon(Utility.bitmapDescriptorFromVector(requireContext(),
                     R.drawable.ic_pin))
                 markerOption.title("You")

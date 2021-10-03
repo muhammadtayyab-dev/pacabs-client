@@ -2,6 +2,8 @@ package com.techlogix.pacaps.network;
 
 import android.app.Dialog;
 
+import com.techlogix.hirecabs.models.bookingsModels.TempBookingRequestModel;
+import com.techlogix.hirecabs.models.bookingsModels.TempBookingResponseModel;
 import com.techlogix.pacaps.PACAP;
 import com.techlogix.pacaps.activities.BaseActivity;
 import com.techlogix.pacaps.dialogs.PacapDialog;
@@ -9,6 +11,7 @@ import com.techlogix.pacaps.enumirations.ErrorDescription;
 import com.techlogix.pacaps.models.GenericResponseModel;
 import com.techlogix.pacaps.models.NearestVehiclesModels.GetNearAvailableVehiclesRequestModel;
 import com.techlogix.pacaps.models.NearestVehiclesModels.GetNearestAvailbleVehiclesResponseModel;
+import com.techlogix.pacaps.models.cabAndDriverInformationModels.CabsAndTheirFareResponseModel;
 import com.techlogix.pacaps.models.ceateUserModel.CreateUserRequestModel;
 import com.techlogix.pacaps.models.ceateUserModel.CreateUserResponseModel;
 import com.techlogix.pacaps.models.ceateUserModel.VerifyUserOtp;
@@ -132,6 +135,16 @@ public class APIManager {
         sendResultGeneric(result, callback, Utility.Companion.getGET_VEHICLES());
     }
 
+    public void getCabsAndTheirFare(CallbackGenric callback, String cityName, String tripType) {
+        GetDataService service = retrofit.create(GetDataService.class);
+        Call<GenericResponseModel<ArrayList<CabsAndTheirFareResponseModel>>> result = service.getCabsAndTheirFare(cityName, tripType);
+        sendResultGeneric(result, callback, Utility.Companion.getSHOW_AVAILABLE_CAB());
+    }
+    public void tempBooking(CallbackGenric callback, TempBookingRequestModel requestModel) {
+        GetDataService service = retrofit.create(GetDataService.class);
+        Call<GenericResponseModel<TempBookingResponseModel>> result = service.tempBooking(requestModel);
+        sendResultGeneric(result, callback, Utility.Companion.getTEMPBOOKING());
+    }
     private <T> void sendResultGeneric(Call<T> call, final CallbackGenric result, int rc) {
         PacapDialog dialog = null;
         if (Objects.requireNonNull(PACAP.Companion.getINSTANCE()).getBaseActivity() != null && !Objects.requireNonNull(PACAP.Companion.getINSTANCE().getBaseActivity()).isFinishing()) {
