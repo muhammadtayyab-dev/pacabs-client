@@ -22,6 +22,7 @@ import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.techlogix.hirecabs.models.bookingsModels.TempBookingRequestModel
+import com.techlogix.hirecabs.models.bookingsModels.TempBookingResponseModel
 import com.techlogix.pacaps.R
 import com.techlogix.pacaps.activities.BaseActivity
 import com.techlogix.pacaps.activities.DashboardActivity
@@ -133,9 +134,22 @@ class ProvidersAndCabsTripInformationFragment<T> : Fragment(), RadioGroup.OnChec
 
     override fun onCheckedChanged(p0: RadioGroup?, checkedId: Int) {
         val button = p0?.findViewById(checkedId) as RadioButton
-        if (button.isPressed) {
 
-            if (((cabTypeRecycler.adapter as ProviderAndCabsFragmentGeneinceRecyclerAdapter<*>).getSelectedItem() != null)) {
+        if (checkedId == R.id.bookNowRb && button.isPressed) {
+            if ((cabTypeRecycler.adapter != null)) {
+                if (((cabTypeRecycler.adapter as ProviderAndCabsFragmentGeneinceRecyclerAdapter<*>).
+                    getSelectedItem() != null)) {
+                    if (validate()) setTempBooking()
+                } else {
+                    baseActivity?.showToast("Please Select Vehicle first to proceed")
+                    button.isChecked = false
+                }
+            } else {
+                baseActivity?.showToast("Please Select Vehicle first to proceed")
+                button.isChecked = false
+            }
+        } else if (checkedId == R.id.bookLaterRb && button.isPressed) {
+            if ((cabTypeRecycler.adapter != null) && ((cabTypeRecycler.adapter as ProviderAndCabsFragmentGeneinceRecyclerAdapter<*>).getSelectedItem() != null)) {
                 BookRideDialog(requireContext(), object : AlertDialogCallback {
                     override fun onDissmiss() {
                         findNavController().navigate(
@@ -143,10 +157,20 @@ class ProvidersAndCabsTripInformationFragment<T> : Fragment(), RadioGroup.OnChec
 
                     }
                 }).show()
-            } else baseActivity?.showToast("Please Select Vehicle first to proceed")
-
-
+            } else {
+                baseActivity?.showToast("Please Select Vehicle first to proceed")
+                button.isChecked = false
+            }
         }
+    }
+
+    private fun validate(): Boolean {
+
+        if (locTv.text.isNullOrEmpty()) {
+            baseActivity?.showToast("Please select destination location")
+            return false
+        } else return true
+
     }
 
     override fun returnCallback(t: T, level: Int) {
@@ -172,6 +196,17 @@ class ProvidersAndCabsTripInformationFragment<T> : Fragment(), RadioGroup.OnChec
             val cityResponseModel = response?.result as GetCityFromLatLongResponseModel
             (requireActivity() as BaseActivity).pacap?.cityId = cityResponseModel.cityid
 
+        } else if (requestCode == Utility.TEMPBOOKING) {
+            if (response?.status ?: false) {
+                val bodyResponse = response?.result as TempBookingResponseModel
+                BookRideDialog(requireContext(), object : AlertDialogCallback {
+                    override fun onDissmiss() {
+                        findNavController().navigate(
+                            ProvidersAndCabsTripInformationFragmentDirections.gotoRideConfirmationFragment())
+
+                    }
+                }).show()
+            }
         }
     }
 
@@ -200,7 +235,7 @@ class ProvidersAndCabsTripInformationFragment<T> : Fragment(), RadioGroup.OnChec
                     data?.let {
                         val place = Autocomplete.getPlaceFromIntent(data)
                         locTv.setText(place.address)
-                        locTv.tag = place.latLng
+                        locTv.tag = place
 
                     }
                 }
@@ -223,7 +258,7 @@ class ProvidersAndCabsTripInformationFragment<T> : Fragment(), RadioGroup.OnChec
                     data?.let {
                         val place = Autocomplete.getPlaceFromIntent(data)
                         addressTv.setText(place.address)
-                        addressTv.tag = place.latLng
+                        addressTv.tag = place
                         APIManager.showDialog = false
                         APIManager.getInstance().getCityByLatLong(this,
                             place.latLng?.latitude ?: 0.0,

@@ -119,7 +119,7 @@ class ProviderAndCabsFragmentGeneinceRecyclerAdapter<T>(var genericArray: ArrayL
         notifyDataSetChanged()
     }
 
-    fun getSelectedItem(): Any {
-        return selectedItem!!
+    fun getSelectedItem(): Any? {
+        return selectedItem
     }
 }

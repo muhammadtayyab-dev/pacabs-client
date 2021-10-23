@@ -193,7 +193,7 @@
                 android:maxLines="2"
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/_15sdp"
-                android:text="SiriNagar, Simlaa" />
+                android:hint="Starting Address" />
         </RelativeLayout>
 
 
@@ -224,7 +224,7 @@
                 android:maxLines="2"
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/_15sdp"
-                android:text="SiriNagar, Simlaa" />
+                android:hint="Destination Address" />
         </RelativeLayout>
 
 
